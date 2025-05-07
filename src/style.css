@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@layer utilities {
+    .hidden-input {
+        @apply pointer-events-none absolute -z-1 h-[0.1px] w-[0.1px] overflow-hidden opacity-0;
+    }
+}
+
+body {
+    @apply bg-gray-50 text-slate-900;
+    font-family: Inter, sans-serif;
+}
