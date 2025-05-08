@@ -3,7 +3,7 @@
         <FileInput id="first-file" ref="first-file" />
         <FileInput id="second-file" ref="second-file" />
         <button
-            class="ml-4 h-11 cursor-pointer rounded-xl bg-slate-700 px-6 text-gray-100 shadow shadow-slate-900/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+            class="ml-3 h-11 cursor-pointer rounded-xl bg-slate-700 px-6 text-gray-100 shadow shadow-slate-900/40 transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md"
             type="submit"
         >
             Submit
