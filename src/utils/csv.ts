@@ -1,4 +1,5 @@
 import Papa from "papaparse";
+import type { CSVData } from "@/types";
 
 function readFileAsText(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -39,4 +40,13 @@ export function stringToCSV(text: string) {
     const parsed = parseCSV(text);
     if (!validateCSV(parsed.meta.fields)) return;
     return parsed;
+}
+
+export function stringsToCSV(texts: string[]) {
+    return texts.reduce((acc, text) => {
+        const parsed = parseCSV(text);
+        if (!validateCSV(parsed.meta.fields)) return acc;
+        acc.push(parsed.data);
+        return acc;
+    }, [] as CSVData[]);
 }

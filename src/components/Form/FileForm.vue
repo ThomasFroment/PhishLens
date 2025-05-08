@@ -14,7 +14,8 @@
 <script lang="ts" setup>
 import { useTemplateRef } from "vue";
 import FileInput from "@/components/Form/FileInput.vue";
-import { readFilesAsText, stringToCSV } from "@/utils/csv.ts";
+import { readFilesAsText, stringsToCSV } from "@/utils/csv.ts";
+import { useUpdateCSV } from "@/composables/test.ts";
 
 const filesInput = [useTemplateRef("first-file"), useTemplateRef("second-file")];
 
@@ -27,9 +28,6 @@ async function submitHandler() {
     if (inputtedFiles.length === 0) return;
 
     const filesAsText = await readFilesAsText(inputtedFiles);
-    for (const text of filesAsText) {
-        const record = stringToCSV(text);
-        console.log(record);
-    }
+    useUpdateCSV(stringsToCSV(filesAsText));
 }
 </script>
