@@ -1,9 +1,8 @@
 import { ref } from "vue";
 import type { CSVData } from "@/types";
 
-const csvArray = ref<CSVData[]>([]);
+const csvArray = ref<(CSVData | null)[]>([]);
 
-export function useUpdateCSV(newCSVArray: CSVData[]) {
-    console.log(newCSVArray);
+export function useUpdateCSV(newCSVArray: (CSVData | null)[]) {
     csvArray.value = newCSVArray;
 }

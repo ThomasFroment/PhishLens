@@ -22,8 +22,7 @@ const csvFilesRef = [useTemplateRef("first-file"), useTemplateRef("second-file")
 async function submitHandler() {
     // prettier-ignore
     const csv = csvFilesRef
-        .map((ref) => ref.value?.csvFileData.content as CSVData | null)
-        .filter((content): content is CSVData => content !== null);
+        .map((ref) => ref.value?.csvFileData.content as CSVData | null);
 
     useUpdateCSV(csv);
 }
