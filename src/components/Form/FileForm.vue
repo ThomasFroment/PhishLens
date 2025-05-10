@@ -1,40 +1,26 @@
 <template>
     <form class="card form-wrapper" @submit.prevent="submitHandler">
-        <FileInput :id="'first-file'" ref="first-file" />
-        <FileInput :id="'second-file'" ref="second-file" />
-        <button
-            class="submit-button"
-            type="submit"
-        >
-            Submit
-        </button>
+        <FileInput :id="1" ref="first-file" />
+        <FileInput :id="2" ref="second-file" />
+        <button class="submit-button" type="submit">Analyser</button>
     </form>
 </template>
 
 <script lang="ts" setup>
 import { useTemplateRef } from "vue";
 import FileInput from "@/components/Form/FileInput.vue";
-import { useUpdateCSV } from "@/composables/test.ts";
-import type { CSVData } from "@/types";
+import { useUpdateCSV } from "@/composables/chartCsv.ts";
+import type { PhishingRecord } from "@/utils/csv";
 
 const csvFilesRef = [useTemplateRef("first-file"), useTemplateRef("second-file")];
 
 async function submitHandler() {
-    // prettier-ignore
-    const csv = csvFilesRef
-        .map((ref) => ref.value?.csvFileData.content as CSVData | null);
-
+    const csv = csvFilesRef.map((ref) => ref.value?.csvFileData.content as PhishingRecord[] | null);
     useUpdateCSV(csv);
 }
 </script>
 
 <style scoped>
-.card {
-    box-shadow: var(--shadow-md);
-    border-radius: 1rem;
-    background-color: var(--color-slate-50);
-}
-
 .form-wrapper {
     display: flex;
     flex-direction: row;

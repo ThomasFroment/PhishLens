@@ -1,15 +1,15 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { parseStringToCSV, readFileAsText } from "@/utils/csv.ts";
-import type { CSVData } from "@/types";
+import type { PhishingRecord } from "@/utils/csv";
 
 const props = defineProps({
-    id: String
+    id: Number
 });
 
 const csvFileData = ref({
     name: "",
-    content: null as CSVData | null
+    content: null as PhishingRecord[] | null
 });
 
 defineExpose({
@@ -28,7 +28,7 @@ async function onFileChange(event: Event) {
 
     csvFileData.value = {
         name: file.name,
-        content: csv.data
+        content: csv
     };
 }
 
@@ -39,18 +39,18 @@ function onCrossClick() {
     };
 
     if (!props.id) return;
-    const el = document.getElementById(props.id) as HTMLInputElement;
+    const el = document.getElementById(`fileinput-${props.id}`) as HTMLInputElement;
     el.value = "";
 }
 </script>
 
 <template>
-    <div :class="[ 'file-upload-wrapper', { 'file-upload-wrapper--active': csvFileData.content } ]">
-        <input :id="id" accept="text/csv" hidden type="file" @change="onFileChange" />
-        <label
-            :class="['file-upload-label flex-center', {'file-upload-label--active' : csvFileData.content}]"
-            :for="id"
-        >
+    <div
+        v-tooltip="{ theme: 'btn-tooltip', content: `Importer le fichier CSV n°${id}` }"
+        :class="['file-upload-wrapper', { 'file-upload-wrapper--active': csvFileData.content }]"
+    >
+        <input :id="`fileinput-${id}`" accept="text/csv" hidden type="file" @change="onFileChange" />
+        <label :class="['file-upload-label flex-center', { 'file-upload-label--active': csvFileData.content }]" :for="`fileinput-${id}`">
             <span v-if="csvFileData.content" class="file-upload-text">{{ csvFileData.name }}</span>
             <svg v-else viewBox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -58,12 +58,9 @@ function onCrossClick() {
                 />
             </svg>
         </label>
-        <button @click="onCrossClick"
-                class="file-upload-clear-btn flex-center"
-                v-if="csvFileData.content">
+        <button @click="onCrossClick" class="file-upload-clear-btn flex-center" v-if="csvFileData.content">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                <path
-                    d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
             </svg>
         </button>
     </div>

@@ -17,20 +17,24 @@ body {
   padding: 1rem;
 }
 
+.card {
+  box-shadow: var(--shadow-md);
+  border-radius: 1rem;
+  background-color: var(--color-slate-50);
+}
+
 .v-popper--theme-btn-tooltip .v-popper__inner {
-  /*  background: #ff0000;
-    color: #ff0000;
-    padding: 0px;
-    border: 1px #000000 solid;
-    border-radius: 0px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);*/
+  background: var(--color-slate-50);
+  border-radius: 0.5rem;
+  color: var(--color-slate-900);
+  padding: 0.3rem 0.8rem;
+  box-shadow: var(--shadow);
 }
 
 .v-popper--theme-btn-tooltip .v-popper__arrow-outer {
-  /*  border-color: #000000;*/
+  border-color: var(--color-slate-50);
 }
 
 .v-popper--theme-btn-tooltip .v-popper__arrow-inner {
-  /*  visibility: visible;
-    border-color: #ffffff;*/
+  visibility: visible;
 }
