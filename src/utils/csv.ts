@@ -1,4 +1,5 @@
 import Papa from "papaparse";
+import { z } from "zod";
 
 export function readFileAsText(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -17,8 +18,6 @@ export function readFileAsText(file: File): Promise<string> {
     });
 }
 
-export const REQUIRED_CSV_FIELDS = ["id", "status", "email", "first_name", "last_name", "position", "reported", "send_date", "modified_date"];
-
 export function parseCSV(text: string) {
     return Papa.parse<Record<string, string>>(text.replace(/["\t]/g, ""), {
         delimiter: ",",
@@ -27,12 +26,23 @@ export function parseCSV(text: string) {
     });
 }
 
-export function validateCSV(fields: string[] | undefined): boolean {
-    return Array.isArray(fields) && REQUIRED_CSV_FIELDS.every((val) => fields.includes(val));
-}
+const phishingRecordSchema = z.object({
+    id: z.string(),
+    email: z.string(),
+    status: z.enum(["Clicked Link", "Email Opened", "Email Sent", "Submitted Data"]),
+    first_name: z.string(),
+    last_name: z.string(),
+    position: z.string(),
+    reported: z.string()
+});
+
+export type PhishingRecord = z.infer<typeof phishingRecordSchema>;
 
 export function parseStringToCSV(text: string) {
-    const parsed = parseCSV(text);
-    if (!validateCSV(parsed.meta.fields)) return;
-    return parsed;
+    const csv = parseCSV(text);
+
+    const result = phishingRecordSchema.array().safeParse(csv.data);
+    if (!result.success) return;
+
+    return result.data as PhishingRecord[];
 }
