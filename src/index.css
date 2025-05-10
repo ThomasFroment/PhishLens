@@ -1,0 +1,5 @@
+@layer variables, reset, base;
+
+@import '@/assets/variables.css' layer(variables);
+@import '@/assets/normalize.css' layer(reset);
+@import '@/assets/main.css' layer(base);

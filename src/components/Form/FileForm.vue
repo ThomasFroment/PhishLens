@@ -1,9 +1,9 @@
 <template>
-    <form class="flex flex-row justify-end gap-4 rounded-2xl bg-slate-50 p-4 shadow-md" @submit.prevent="submitHandler">
-        <FileInput id="first-file" ref="first-file" />
-        <FileInput id="second-file" ref="second-file" />
+    <form class="card form-wrapper" @submit.prevent="submitHandler">
+        <FileInput :id="'first-file'" ref="first-file" />
+        <FileInput :id="'second-file'" ref="second-file" />
         <button
-            class="ml-3 h-11 cursor-pointer rounded-xl bg-slate-700 px-6 text-gray-100 shadow shadow-slate-900/40 transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md"
+            class="submit-button"
             type="submit"
         >
             Submit
@@ -27,3 +27,37 @@ async function submitHandler() {
     useUpdateCSV(csv);
 }
 </script>
+
+<style scoped>
+.card {
+    box-shadow: var(--shadow-md);
+    border-radius: 1rem;
+    background-color: var(--color-slate-50);
+}
+
+.form-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 0.75rem 1.25rem;
+}
+
+.submit-button {
+    color: var(--color-slate-50);
+    background-color: var(--color-slate-700);
+    transition: all 150ms var(--default-transition-timing-function);
+    margin-left: 0.75rem;
+    height: 2.75rem;
+    cursor: pointer;
+    border-radius: 0.75rem;
+    padding: 0 1.5rem;
+    box-shadow: var(--shadow);
+    border: none;
+}
+
+.submit-button:hover {
+    transform: translateY(-0.125rem);
+    box-shadow: var(--shadow-md);
+}
+</style>
