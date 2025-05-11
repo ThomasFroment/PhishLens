@@ -1,50 +1,51 @@
 <template>
     <FileForm />
     <div class="chart-grid">
-        <CampaignNightingaleChart class="temp" />
+        <CampaignPolarChart class="temp" />
+        <CampaignPolarChart class="temp" />
     </div>
 </template>
 
 <script lang="ts" setup>
 import FileForm from "@/components/Form/FileForm.vue";
-import CampaignNightingaleChart from "@/components/Cards/CampaignNightingaleChart.vue";
+import CampaignPolarChart from "@/components/Cards/CampaignPolarChart.vue";
 import { registerTheme } from "echarts/core";
 import { provide } from "vue";
 import { THEME_KEY } from "vue-echarts";
 
 registerTheme("customTheme", {
-    seriesCnt: "3",
-    backgroundColor: "rgba(252,252,252,0)",
-    titleColor: "#666666",
-    subtitleColor: "#999999",
+    seriesCnt: "4",
+    backgroundColor: "rgba(0,0,0,0)",
+    titleColor: "#516b91",
+    subtitleColor: "#93b7e3",
     textColorShow: false,
     textColor: "#333",
-    markTextColor: "#ffffff",
-    color: ["#3fb1e3", "#6be6c1", "#626c91", "#a0a7e6", "#c4ebad", "#96dee8"],
+    markTextColor: "#eeeeee",
+    color: ["#516b91", "#59c4e6", "#edafda", "#93b7e3", "#a5e7f0", "#cbb0e3"],
     borderColor: "#ccc",
     borderWidth: 0,
-    visualMapColor: ["#2a99c9", "#afe8ff"],
+    visualMapColor: ["#516b91", "#59c4e6", "#a5e7f0"],
     legendTextColor: "#999999",
-    kColor: "#e6a0d2",
+    kColor: "#edafda",
     kColor0: "transparent",
-    kBorderColor: "#e6a0d2",
-    kBorderColor0: "#3fb1e3",
+    kBorderColor: "#d680bc",
+    kBorderColor0: "#8fd3e8",
     kBorderWidth: "2",
-    lineWidth: "3",
-    symbolSize: "8",
+    lineWidth: "2",
+    symbolSize: "6",
     symbol: "emptyCircle",
     symbolBorderWidth: "2",
-    lineSmooth: false,
-    graphLineWidth: "1",
-    graphLineColor: "#cccccc",
-    mapLabelColor: "#ffffff",
-    mapLabelColorE: "#3fb1e3",
-    mapBorderColor: "#aaaaaa",
-    mapBorderColorE: "#3fb1e3",
+    lineSmooth: true,
+    graphLineWidth: 1,
+    graphLineColor: "#aaaaaa",
+    mapLabelColor: "#000",
+    mapLabelColorE: "#516b91",
+    mapBorderColor: "#516b91",
+    mapBorderColorE: "#516b91",
     mapBorderWidth: 0.5,
     mapBorderWidthE: 1,
-    mapAreaColor: "#eeeeee",
-    mapAreaColorE: "rgba(63,177,227,0.25)",
+    mapAreaColor: "#f3f3f3",
+    mapAreaColorE: "#a5e7f0",
     axes: [
         {
             type: "all",
@@ -122,23 +123,23 @@ registerTheme("customTheme", {
     toolboxEmphasisColor: "#666666",
     tooltipAxisColor: "#cccccc",
     tooltipAxisWidth: 1,
-    timelineLineColor: "#626c91",
+    timelineLineColor: "#8fd3e8",
     timelineLineWidth: 1,
-    timelineItemColor: "#626c91",
-    timelineItemColorE: "#626c91",
-    timelineCheckColor: "#3fb1e3",
-    timelineCheckBorderColor: "#3fb1e3",
+    timelineItemColor: "#8fd3e8",
+    timelineItemColorE: "#8fd3e8",
+    timelineCheckColor: "#8fd3e8",
+    timelineCheckBorderColor: "#8a7ca8",
     timelineItemBorderWidth: 1,
-    timelineControlColor: "#626c91",
-    timelineControlBorderColor: "#626c91",
+    timelineControlColor: "#8fd3e8",
+    timelineControlBorderColor: "#8fd3e8",
     timelineControlBorderWidth: 0.5,
-    timelineLabelColor: "#626c91",
-    datazoomBackgroundColor: "rgba(255,255,255,0)",
-    datazoomDataColor: "rgba(222,222,222,1)",
-    datazoomFillColor: "rgba(114,230,212,0.25)",
-    datazoomHandleColor: "#cccccc",
+    timelineLabelColor: "#8fd3e8",
+    datazoomBackgroundColor: "rgba(0,0,0,0)",
+    datazoomDataColor: "rgba(255,255,255,0.3)",
+    datazoomFillColor: "rgba(167,183,204,0.4)",
+    datazoomHandleColor: "#a7b7cc",
     datazoomHandleWidth: "100",
-    datazoomLabelColor: "#999999"
+    datazoomLabelColor: "#333"
 });
 provide(THEME_KEY, "customTheme");
 </script>
@@ -146,12 +147,18 @@ provide(THEME_KEY, "customTheme");
 <style scoped>
 .chart-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    grid-auto-rows: minmax(0, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+    grid-auto-rows: minmax(40rem, 1fr);
+    gap: 1rem;
+}
+
+@media (max-width: 40rem) {
+    .chart-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .temp {
-    grid-column: span 2 / span 2;
-    min-height: 25rem;
+    grid-column: auto;
 }
 </style>
