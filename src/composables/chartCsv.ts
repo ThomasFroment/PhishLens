@@ -1,5 +1,5 @@
 import { computed, readonly, ref } from "vue";
-import type { PhishingRecord } from "@/utils/csv";
+import type { PhishingRecord, StatusType } from "@/utils/csv";
 
 const _csvArray = ref<(PhishingRecord[] | null)[]>([]);
 export const csvArray = readonly(_csvArray);
@@ -9,7 +9,6 @@ export function useUpdateCSV(newCSVArray: (PhishingRecord[] | null)[]) {
 }
 
 export const recordsByStatus = computed(() => {
-    console.log("useCategorizeByStatus");
     return csvArray.value.map((csv) => {
         if (!csv) return null;
         return csv.reduce(
@@ -18,15 +17,24 @@ export const recordsByStatus = computed(() => {
                 acc[curr.status].push(curr);
                 return acc;
             },
-            {} as Record<string, PhishingRecord[]>
+            {} as Record<StatusType, PhishingRecord[]>
         );
     });
 });
 
+// Return the count of record for each status ('link clicked', ...) per campaign
 export const countByStatus = computed(() => {
-    console.log("useCountByStatus");
     return recordsByStatus.value.map((c) => {
         if (!c) return null;
         return Object.fromEntries(Object.entries(c).map(([key, val]) => [key, val.length]));
-    });
+    }) as Record<StatusType, number>[];
+
+    /*    return recordsByStatus.value.map((campaign) => {
+            if (!campaign) return null;
+            return Object.fromEntries(
+                statusEnum.map((status) => {
+                    return [status, campaign[status].length];
+                })
+            ) as Record<StatusType, number>;
+        });*/
 });

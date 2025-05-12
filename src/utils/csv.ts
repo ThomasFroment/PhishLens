@@ -26,16 +26,19 @@ export function parseCSV(text: string) {
     });
 }
 
+export const statusEnum = ["Email Sent", "Email Opened", "Clicked Link", "Submitted Data"] as const;
+
 const phishingRecordSchema = z.object({
     id: z.string(),
     email: z.string(),
-    status: z.enum(["Clicked Link", "Email Opened", "Email Sent", "Submitted Data"]),
+    status: z.enum(statusEnum),
     first_name: z.string(),
     last_name: z.string(),
     position: z.string(),
     reported: z.string()
 });
 
+export type StatusType = (typeof statusEnum)[number];
 export type PhishingRecord = z.infer<typeof phishingRecordSchema>;
 
 export function parseStringToCSV(text: string) {

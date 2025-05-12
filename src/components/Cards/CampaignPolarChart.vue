@@ -1,25 +1,43 @@
 <template>
     <div class="card">
-        <v-chart class="chart" :option="option" />
+        <v-chart v-if="option" :option="option" class="chart" />
     </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { computed } from "vue";
+import { countByStatus } from "@/composables/chartCsv.ts";
 
 import type { ComposeOption } from "echarts/core";
 import { use } from "echarts/core";
 import type { BarSeriesOption } from "echarts/charts";
 import { BarChart } from "echarts/charts";
-import type { LegendComponentOption, PolarComponentOption, TooltipComponentOption } from "echarts/components";
+import type {
+    LegendComponentOption,
+    PolarComponentOption,
+    TooltipComponentOption
+} from "echarts/components";
 import { LegendComponent, PolarComponent, TooltipComponent } from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
+import { aggregatePhishingStatus } from "@/utils/chart.ts";
+
+const props = defineProps({
+    id: {
+        type: Number,
+        required: true
+    }
+});
 
 use([LegendComponent, PolarComponent, TooltipComponent, BarChart, CanvasRenderer]);
 
-type EChartsOption = ComposeOption<LegendComponentOption | PolarComponentOption | TooltipComponentOption | BarSeriesOption>;
+type EChartsOption = ComposeOption<
+    LegendComponentOption | PolarComponentOption | TooltipComponentOption | BarSeriesOption
+>;
 
-const option = computed<EChartsOption>(() => {
+const option = computed<EChartsOption | undefined>(() => {
+    if (!countByStatus.value[props.id]) return;
+    const aggregatedCount = aggregatePhishingStatus(countByStatus.value[props.id]);
+
     return {
         legend: {
             orient: "horizontal",
@@ -48,27 +66,27 @@ const option = computed<EChartsOption>(() => {
         },
         series: [
             {
-                name: "Data Submitted",
+                name: "Submitted Data",
                 type: "bar",
-                data: [148],
+                data: [aggregatedCount["Submitted Data"]],
                 coordinateSystem: "polar"
             },
             {
                 name: "Clicked Link",
                 type: "bar",
-                data: [183],
+                data: [aggregatedCount["Clicked Link"]],
                 coordinateSystem: "polar"
             },
             {
                 name: "Email Opened",
                 type: "bar",
-                data: [345],
+                data: [aggregatedCount["Email Opened"]],
                 coordinateSystem: "polar"
             },
             {
                 name: "Email Sent",
                 type: "bar",
-                data: [513],
+                data: [aggregatedCount["Email Sent"]],
                 coordinateSystem: "polar"
             }
         ]

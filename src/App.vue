@@ -1,8 +1,8 @@
 <template>
     <FileForm />
     <div class="chart-grid">
-        <CampaignPolarChart class="temp" />
-        <CampaignPolarChart class="temp" />
+        <CampaignPolarChart :id="0" class="temp" />
+        <CampaignPolarChart :id="1" class="temp" />
     </div>
 </template>
 
