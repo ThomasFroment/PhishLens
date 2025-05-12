@@ -33,18 +33,17 @@ const option = computed<EChartsOption | undefined>(() => {
 
     return {
         legend: {
-            orient: "horizontal",
             width: "100%",
             bottom: 20,
             right: "center"
         },
         polar: {
-            radius: [30, "80%"]
+            radius: ["10%", "80%"]
         },
         angleAxis: {
             startAngle: 90,
             splitLine: {
-                show: false
+                show: true
             }
         },
         radiusAxis: {
@@ -57,7 +56,7 @@ const option = computed<EChartsOption | undefined>(() => {
                 // @ts-expect-error All those properties are not direct properties of params so ts get emotional
                 const percentage = (params.value / total) * 100;
                 // @ts-expect-error All those properties are not direct properties of params so ts get emotional
-                return `${params.marker} ${params.seriesName}: <strong>${params.value}</strong> (${Math.round(percentage * 10) / 10}%)`;
+                return `<strong>CSV n°${props.id + 1}</strong> <br/> ${params.marker} ${params.seriesName}: <strong>${params.value}</strong> (${Math.round(percentage * 10) / 10}%)`;
             }
         },
         series: [
@@ -80,7 +79,7 @@ const option = computed<EChartsOption | undefined>(() => {
                 coordinateSystem: "polar"
             },
             {
-                name: "Email envoyé",
+                name: "Email reçu",
                 type: "bar",
                 data: [aggregatedCount["Email Sent"]],
                 coordinateSystem: "polar"

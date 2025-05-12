@@ -2,6 +2,7 @@
     <FileForm />
     <div class="chart-grid">
         <CampaignPolarChart :id="0" class="temp" />
+        <CampaignDoughnutChart :id="0" class="temp" />
         <CampaignPolarChart :id="1" class="temp" />
     </div>
 </template>
@@ -12,6 +13,7 @@ import CampaignPolarChart from "@/components/Cards/CampaignPolarChart.vue";
 import { registerTheme } from "echarts/core";
 import { provide } from "vue";
 import { THEME_KEY } from "vue-echarts";
+import CampaignDoughnutChart from "@/components/Cards/CampaignDoughnutChart.vue";
 
 registerTheme("customTheme", {
     seriesCnt: "4",
