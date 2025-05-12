@@ -14,14 +14,16 @@ app.use(FloatingVue, {
         "btn-tooltip": {
             $extend: "tooltip",
             $resetCss: true,
-            triggers: ["hover"],
             delay: {
                 show: 700,
                 hide: 0
             },
-            autoHide: false,
-            placement: "bottom",
-            strategy: "absolute"
+            placement: "bottom"
+        },
+        "chart-dropdown": {
+            $extend: "dropdown",
+            $resetCss: true,
+            overflowPadding: 30
         }
     }
 });
