@@ -23,7 +23,8 @@ app.use(FloatingVue, {
         "chart-dropdown": {
             $extend: "dropdown",
             $resetCss: true,
-            overflowPadding: 30
+            overflowPadding: 30,
+            placement: "right-start"
         }
     }
 });
