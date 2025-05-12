@@ -43,7 +43,7 @@ async function submitHandler() {
 }
 
 .submit-button:hover {
-    transform: translateY(-0.125rem);
+    transform: translateY(-0.1rem);
     box-shadow: var(--shadow-md);
 }
 </style>

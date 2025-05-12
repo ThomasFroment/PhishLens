@@ -4,7 +4,10 @@ import { parseStringToCSV, readFileAsText } from "@/utils/csv.ts";
 import type { PhishingRecord } from "@/utils/csv";
 
 const props = defineProps({
-    id: Number
+    id: {
+        type: Number,
+        required: true
+    }
 });
 
 const csvFileData = ref({
@@ -50,7 +53,10 @@ function onCrossClick() {
         :class="['file-upload-wrapper', { 'file-upload-wrapper--active': csvFileData.content }]"
     >
         <input :id="`fileinput-${id}`" accept="text/csv" hidden type="file" @change="onFileChange" />
-        <label :class="['file-upload-label flex-center', { 'file-upload-label--active': csvFileData.content }]" :for="`fileinput-${id}`">
+        <label
+            :class="['file-upload-label flex-center', { 'file-upload-label--active': csvFileData.content }]"
+            :for="`fileinput-${id}`"
+        >
             <span v-if="csvFileData.content" class="file-upload-text">{{ csvFileData.name }}</span>
             <svg v-else viewBox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -58,9 +64,11 @@ function onCrossClick() {
                 />
             </svg>
         </label>
-        <button @click="onCrossClick" class="file-upload-clear-btn flex-center" v-if="csvFileData.content">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+        <button v-if="csvFileData.content" class="file-upload-clear-btn flex-center" @click="onCrossClick">
+            <svg viewBox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
+                />
             </svg>
         </button>
     </div>
@@ -78,7 +86,7 @@ function onCrossClick() {
 
 .file-upload-wrapper:hover {
     box-shadow: var(--shadow-md);
-    transform: translateY(-0.125rem);
+    transform: translateY(-0.1rem);
 }
 
 .file-upload-wrapper--active {
@@ -106,6 +114,7 @@ function onCrossClick() {
 .file-upload-label svg {
     width: 1.75rem;
     height: 1.75rem;
+    fill: var(--color-slate-700);
 }
 
 .file-upload-clear-btn {
