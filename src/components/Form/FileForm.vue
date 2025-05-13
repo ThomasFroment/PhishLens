@@ -9,8 +9,8 @@
 <script lang="ts" setup>
 import { useTemplateRef } from "vue";
 import FileInput from "@/components/Form/FileInput.vue";
-import { useUpdateCSV } from "@/composables/chartCsv.ts";
-import type { PhishingRecord } from "@/utils/csv";
+import { useUpdateCSV } from "@/composables/usePhishingMetrics.ts";
+import type { PhishingRecord } from "@/utils/parser.ts";
 
 const csvFilesRef = [useTemplateRef("first-file"), useTemplateRef("second-file")];
 

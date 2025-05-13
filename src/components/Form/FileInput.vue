@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { parseStringToCSV, readFileAsText } from "@/utils/csv.ts";
-import type { PhishingRecord } from "@/utils/csv";
+import type { PhishingRecord } from "@/utils/parser.ts";
+import { parseStringToCSV, readFileAsText } from "@/utils/parser.ts";
 
 const props = defineProps({
     id: {

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from "vue";
-import { countByStatus } from "@/composables/chartCsv.ts";
+import { countByStatus } from "@/composables/usePhishingMetrics.ts";
 import BlankChart from "@/components/Cards/BlankChart.vue";
 
 import type { ComposeOption } from "echarts/core";
@@ -10,7 +10,7 @@ import { PieChart } from "echarts/charts";
 import type { LegendComponentOption, TooltipComponentOption } from "echarts/components";
 import { LegendComponent, TooltipComponent } from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
-import { sum } from "@/utils/chart.ts";
+import { sum } from "@/utils/dataOps.ts";
 
 const props = defineProps({
     id: {
