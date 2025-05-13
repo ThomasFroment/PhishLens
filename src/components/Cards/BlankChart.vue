@@ -48,7 +48,7 @@ button {
 button svg {
     transition: all 150ms var(--default-transition-timing-function);
     fill: var(--color-slate-400);
-    height: 1.7rem;
+    height: 1.5rem;
 }
 
 button:hover {
