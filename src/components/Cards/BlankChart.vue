@@ -30,7 +30,6 @@ defineProps({
 <style scoped>
 .dropdown {
     position: absolute;
-    transform: translate(0.8rem, 0.8rem);
     width: fit-content;
     z-index: 1;
 }
