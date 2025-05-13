@@ -59,9 +59,7 @@ const option = computed<EChartsOption | null>(() => {
             trigger: "item",
             formatter: function (params) {
                 // @ts-expect-error All those properties are not direct properties of params so ts get emotional
-                const percentage = (params.value / total) * 100;
-                // @ts-expect-error All those properties are not direct properties of params so ts get emotional
-                return `<strong>CSV n°${props.id + 1}</strong> <br/> ${params.marker} ${params.seriesName}: <strong>${params.value}</strong> (${Math.round(percentage * 10) / 10}%)`;
+                return `<strong>CSV n°${props.id + 1}</strong> <br/> ${params.marker} ${params.seriesName}: <strong>${params.value}</strong> (${calcPercentage(params.value, total)}%)`;
             }
         },
         series: [
