@@ -1,3 +1,4 @@
+import type { ComputedRef } from "vue";
 import { computed, ref } from "vue";
 import { countElementsInObject, groupRecordsByValue } from "@/utils/dataOps.ts";
 
@@ -28,7 +29,7 @@ export function useUpdateCSV(newCSVArray: MaybePhishingRecords[]): void {
  * Notes:
  * - If a CSV is `null`, the corresponding element in the result will also be `null` (to maintain the order).
  */
-const recordsByStatus = computed(() => {
+const recordsByStatus: ComputedRef<(Record<StatusType, PhishingRecord[]> | null)[]> = computed(() => {
     return csvArray.value.map((csv: MaybePhishingRecords) => {
         if (!csv) return null;
         return groupRecordsByValue(csv, "status");
