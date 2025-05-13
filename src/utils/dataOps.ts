@@ -1,16 +1,6 @@
 import type { PhishingRecord, StatusType } from "@/utils/parser.ts";
 
 /**
- * Sums the values of a given object.
- *
- * @param {Record<string, number>} obj - An object with string keys and numeric values.
- * @returns {number} The sum of all numeric values in the object.
- */
-export function sum(obj: Record<string, number>): number {
-    return Object.values(obj).reduce((acc, val) => acc + val, 0);
-}
-
-/**
  * Aggregates phishing status counts by cumulatively summing the counts
  *
  * @param {Record<StatusType, number>} countByStatus - An object mapping phishing statuses to their respective counts.

@@ -10,7 +10,7 @@ import { PieChart } from "echarts/charts";
 import type { LegendComponentOption, TooltipComponentOption } from "echarts/components";
 import { LegendComponent, TooltipComponent } from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
-import { sum } from "@/utils/dataOps.ts";
+import { calcPercentage, sum } from "@/utils/utils.ts";
 
 const props = defineProps({
     id: {

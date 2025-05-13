@@ -2,7 +2,8 @@
 import { computed } from "vue";
 import { countByStatus } from "@/composables/usePhishingMetrics.ts";
 import BlankChart from "@/components/Cards/BlankChart.vue";
-import { aggregatePhishingStatus, sum } from "@/utils/dataOps.ts";
+import { calcPercentage, sum } from "@/utils/utils.ts";
+import { aggregatePhishingStatus } from "@/utils/dataOps.ts";
 
 import type { ComposeOption } from "echarts/core";
 import { use } from "echarts/core";

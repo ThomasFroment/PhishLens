@@ -2,8 +2,7 @@
 import { computed } from "vue";
 import BlankChart from "@/components/Cards/BlankChart.vue";
 import { countByStatusByPosition } from "@/composables/usePhishingMetrics.ts";
-import { sum } from "@/utils/dataOps.ts";
-
+import { calcPercentage, sum } from "@/utils/utils.ts";
 import type { ComposeOption } from "echarts/core";
 import { use } from "echarts/core";
 import type { TreemapSeriesOption } from "echarts/charts";
