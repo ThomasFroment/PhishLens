@@ -3,7 +3,7 @@
     <div class="chart-grid">
         <CampaignPolarChart :id="0" class="temp" />
         <CampaignDoughnutChart :id="0" class="temp" />
-        <CampaignPolarChart :id="1" class="temp" />
+        <CampaignTreemapChart :id="0" class="temp" />
     </div>
 </template>
 
@@ -14,16 +14,17 @@ import { registerTheme } from "echarts/core";
 import { provide } from "vue";
 import { THEME_KEY } from "vue-echarts";
 import CampaignDoughnutChart from "@/components/Cards/CampaignDoughnutChart.vue";
+import CampaignTreemapChart from "@/components/Cards/CampaignTreemapChart.vue";
 
 registerTheme("customTheme", {
-    seriesCnt: "4",
+    seriesCnt: "3",
     backgroundColor: "rgba(0,0,0,0)",
     titleColor: "#516b91",
     subtitleColor: "#93b7e3",
     textColorShow: false,
     textColor: "#333",
     markTextColor: "#eeeeee",
-    color: ["#516b91", "#59c4e6", "#edafda", "#93b7e3", "#a5e7f0", "#cbb0e3"],
+    color: ["#516b91", "#59c4e6", "#edafda", "#93b7e3", "#a5e7f0", "#cbb0e3" /*, "#ec78c8", "#e6a1f4"*/],
     borderColor: "#ccc",
     borderWidth: 0,
     visualMapColor: ["#516b91", "#59c4e6", "#a5e7f0"],

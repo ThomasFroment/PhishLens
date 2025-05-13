@@ -28,8 +28,10 @@ const option = computed<EChartsOption | null>(() => {
     if (!campaignCountByStatus) return null;
 
     const total = sum(campaignCountByStatus);
-
     return {
+        textStyle: {
+            fontFamily: "Inter"
+        },
         tooltip: {
             trigger: "item",
             formatter: function (params) {

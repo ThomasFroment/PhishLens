@@ -32,6 +32,9 @@ const option = computed<EChartsOption | null>(() => {
     const total = sum(campaignCountByStatus);
 
     return {
+        textStyle: {
+            fontFamily: "Inter"
+        },
         legend: {
             width: "100%",
             bottom: 20,

@@ -20,6 +20,7 @@ body {
 
 .card {
     box-shadow: var(--shadow-md);
+    padding: 1;
     border-radius: 1rem;
     background-color: var(--color-slate-50);
 }
