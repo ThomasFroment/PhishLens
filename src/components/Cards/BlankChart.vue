@@ -36,7 +36,7 @@ defineProps({
 }
 
 button {
-    background-color: transparent;
+    background-color: var(--color-slate-50);
 
     transition: all 150ms var(--default-transition-timing-function);
     border-radius: 100%;
