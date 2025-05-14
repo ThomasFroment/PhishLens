@@ -19,7 +19,9 @@ defineProps({
             </button>
             <template #popper>
                 <div class="dropdown-content">
-                    <slot name="dropdown-content" />
+                    <slot name="dropdown-content">
+                        <p>No informations available.</p>
+                    </slot>
                 </div>
             </template>
         </VDropdown>
