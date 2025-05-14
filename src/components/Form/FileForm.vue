@@ -2,7 +2,7 @@
     <form class="card form-wrapper" @submit.prevent="submitHandler">
         <FileInput :id="1" ref="first-file" />
         <FileInput :id="2" ref="second-file" />
-        <button class="submit-button" type="submit">Analyser</button>
+        <button class="submit-button btn" type="submit">Analyser</button>
     </form>
 </template>
 
@@ -30,20 +30,13 @@ async function submitHandler() {
 }
 
 .submit-button {
-    color: var(--color-slate-50);
-    background-color: var(--color-slate-700);
-    transition: all 150ms var(--default-transition-timing-function);
-    margin-left: 0.75rem;
-    height: 2.75rem;
     cursor: pointer;
-    border-radius: 0.75rem;
-    padding: 0 1.5rem;
-    box-shadow: var(--shadow);
+    margin-left: 0.75rem;
     border: none;
-}
-
-.submit-button:hover {
-    transform: translateY(-0.1rem);
-    box-shadow: var(--shadow-md);
+    border-radius: 0.75rem;
+    background-color: var(--color-slate-700);
+    padding: 0 1.5rem;
+    height: 2.75rem;
+    color: var(--color-slate-50);
 }
 </style>

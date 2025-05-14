@@ -50,7 +50,7 @@ function onCrossClick() {
 <template>
     <div
         v-tooltip="{ theme: 'btn-tooltip', content: `Importer le fichier CSV n°${id}` }"
-        :class="['file-upload-wrapper', { 'file-upload-wrapper--active': csvFileData.content }]"
+        :class="['file-upload-wrapper btn', { 'file-upload-wrapper--active': csvFileData.content }]"
     >
         <input :id="`fileinput-${id}`" accept="text/csv" hidden type="file" @change="onFileChange" />
         <label
@@ -77,16 +77,9 @@ function onCrossClick() {
 <style scoped>
 .file-upload-wrapper {
     display: flex;
-    transition: all 150ms var(--default-transition-timing-function);
-    height: 2.75rem;
     align-items: center;
     border-radius: 0.5rem;
-    box-shadow: var(--shadow);
-}
-
-.file-upload-wrapper:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-0.1rem);
+    height: 2.75rem;
 }
 
 .file-upload-wrapper--active {
@@ -94,15 +87,15 @@ function onCrossClick() {
 }
 
 .file-upload-label {
-    cursor: pointer;
-    height: 100%;
     transition: all 300ms var(--default-transition-timing-function);
+    cursor: pointer;
     width: 2.75rem;
+    height: 100%;
 }
 
 .file-upload-label--active {
-    width: 12.5rem;
     padding-left: 1rem;
+    width: 12.5rem;
 }
 
 .file-upload-text {
@@ -118,19 +111,19 @@ function onCrossClick() {
 }
 
 .file-upload-clear-btn {
-    background: transparent;
-    border: none;
     cursor: pointer;
+    border: none;
+    background: transparent;
     padding: 0.5rem;
+    aspect-ratio: 1 / 1;
 
     height: 100%;
-    aspect-ratio: 1 / 1;
 }
 
 .file-upload-clear-btn svg {
+    transition: all 150ms var(--default-transition-timing-function);
     width: 1.2rem;
     height: 1.2rem;
-    transition: all 150ms var(--default-transition-timing-function);
     fill: var(--color-cyan-800);
 }
 

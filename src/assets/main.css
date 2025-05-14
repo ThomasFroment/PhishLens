@@ -25,6 +25,16 @@ body {
     background-color: var(--color-slate-50);
 }
 
+.btn {
+    box-shadow: var(--shadow);
+    transition: all 150ms var(--default-transition-timing-function);
+}
+
+.btn:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-0.1rem);
+}
+
 .v-popper--theme-btn-tooltip .v-popper__inner {
     background: var(--color-slate-50);
     border-radius: 0.5rem;
