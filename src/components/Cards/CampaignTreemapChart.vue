@@ -1,8 +1,11 @@
 <script lang="ts" setup>
 import { computed } from "vue";
-import BlankChart from "@/components/Cards/BlankChart.vue";
 import { countByStatusByPosition } from "@/composables/usePhishingMetrics.ts";
 import { calcPercentage, sumValues } from "@/utils/utils.ts";
+import { translationHashmap } from "@/utils/translation.ts";
+
+import BlankChart from "@/components/Cards/BlankChart.vue";
+
 import type { ComposeOption } from "echarts/core";
 import { use } from "echarts/core";
 import type { TreemapSeriesOption } from "echarts/charts";
@@ -19,15 +22,7 @@ const props = defineProps({
 });
 
 use([TooltipComponent, TreemapChart, CanvasRenderer]);
-
 type EChartsOption = ComposeOption<TooltipComponentOption | TreemapSeriesOption>;
-
-const translationHashmap: Record<string, string> = {
-    "Email Sent": "Email reçu",
-    "Email Opened": "Email ouvert",
-    "Clicked Link": "Lien cliqué",
-    "Submitted Data": "Données soumises"
-};
 
 const option = computed<EChartsOption | null>(() => {
     const campaignCountByStatusByPosition = countByStatusByPosition.value[props.id];

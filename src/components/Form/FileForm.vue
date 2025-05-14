@@ -1,11 +1,3 @@
-<template>
-    <form class="card form-wrapper" @submit.prevent="submitHandler">
-        <FileInput :id="1" ref="first-file" />
-        <FileInput :id="2" ref="second-file" />
-        <button class="submit-button btn" type="submit">Analyser</button>
-    </form>
-</template>
-
 <script lang="ts" setup>
 import { useTemplateRef } from "vue";
 import FileInput from "@/components/Form/FileInput.vue";
@@ -19,6 +11,14 @@ async function submitHandler() {
     useUpdateCSV(csv);
 }
 </script>
+
+<template>
+    <form class="card form-wrapper" @submit.prevent="submitHandler">
+        <FileInput :id="1" ref="first-file" />
+        <FileInput :id="2" ref="second-file" />
+        <button class="submit-button btn" type="submit">Analyser</button>
+    </form>
+</template>
 
 <style scoped>
 .form-wrapper {

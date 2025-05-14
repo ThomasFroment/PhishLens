@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { countByStatus } from "@/composables/usePhishingMetrics.ts";
-import BlankChart from "@/components/Cards/BlankChart.vue";
 import { calcPercentage, sumValues } from "@/utils/utils.ts";
 import { aggregatePhishingStatus } from "@/utils/dataOps.ts";
+import { translationHashmap } from "@/utils/translation";
+
+import BlankChart from "@/components/Cards/BlankChart.vue";
 
 import type { ComposeOption } from "echarts/core";
 import { use } from "echarts/core";
@@ -21,7 +23,6 @@ const props = defineProps({
 });
 
 use([LegendComponent, PolarComponent, TooltipComponent, BarChart, CanvasRenderer]);
-
 type EChartsOption = ComposeOption<
     LegendComponentOption | PolarComponentOption | TooltipComponentOption | BarSeriesOption
 >;
@@ -70,25 +71,25 @@ const option = computed<EChartsOption | null>(() => {
         },
         series: [
             {
-                name: "Données soumises",
+                name: translationHashmap["Submitted Data"],
                 type: "bar",
                 data: [aggregatedCount["Submitted Data"]],
                 coordinateSystem: "polar"
             },
             {
-                name: "Lien cliqué",
+                name: translationHashmap["Clicked Link"],
                 type: "bar",
                 data: [aggregatedCount["Clicked Link"]],
                 coordinateSystem: "polar"
             },
             {
-                name: "Email ouvert",
+                name: translationHashmap["Email Opened"],
                 type: "bar",
                 data: [aggregatedCount["Email Opened"]],
                 coordinateSystem: "polar"
             },
             {
-                name: "Email reçu",
+                name: translationHashmap["Email Sent"],
                 type: "bar",
                 data: [aggregatedCount["Email Sent"]],
                 coordinateSystem: "polar"

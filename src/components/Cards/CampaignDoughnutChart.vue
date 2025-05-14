@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { countByStatus } from "@/composables/usePhishingMetrics.ts";
+import { calcPercentage, sumValues } from "@/utils/utils.ts";
+import { translationHashmap } from "@/utils/translation.ts";
+
 import BlankChart from "@/components/Cards/BlankChart.vue";
 
 import type { ComposeOption } from "echarts/core";
@@ -10,7 +13,6 @@ import { PieChart } from "echarts/charts";
 import type { LegendComponentOption, TooltipComponentOption } from "echarts/components";
 import { LegendComponent, TooltipComponent } from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
-import { calcPercentage, sumValues } from "@/utils/utils.ts";
 
 const props = defineProps({
     id: {
@@ -20,7 +22,6 @@ const props = defineProps({
 });
 
 use([TooltipComponent, LegendComponent, PieChart, CanvasRenderer]);
-
 type EChartsOption = ComposeOption<TooltipComponentOption | LegendComponentOption | PieSeriesOption>;
 
 const option = computed<EChartsOption | null>(() => {
@@ -28,6 +29,7 @@ const option = computed<EChartsOption | null>(() => {
     if (!campaignCountByStatus) return null;
 
     const total = sumValues(campaignCountByStatus);
+
     return {
         textStyle: {
             fontFamily: "Inter"
@@ -57,10 +59,10 @@ const option = computed<EChartsOption | null>(() => {
                     position: "center"
                 },
                 data: [
-                    { value: campaignCountByStatus["Submitted Data"], name: "Données soumises" },
-                    { value: campaignCountByStatus["Clicked Link"], name: "Lien cliqué" },
-                    { value: campaignCountByStatus["Email Opened"], name: "Email ouvert" },
-                    { value: campaignCountByStatus["Email Sent"], name: "Email reçu" }
+                    { value: campaignCountByStatus["Submitted Data"], name: translationHashmap["Submitted Data"] },
+                    { value: campaignCountByStatus["Clicked Link"], name: translationHashmap["Clicked Link"] },
+                    { value: campaignCountByStatus["Email Opened"], name: translationHashmap["Email Opened"] },
+                    { value: campaignCountByStatus["Email Sent"], name: translationHashmap["Email Sent"] }
                 ]
             }
         ]
