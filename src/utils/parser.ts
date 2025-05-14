@@ -1,4 +1,4 @@
-import Papa from "papaparse";
+import Papa, { type ParseResult } from "papaparse";
 import { z } from "zod";
 
 /**
@@ -29,14 +29,14 @@ export function readFileAsText(file: File): Promise<string> {
  * Parses a CSV string into an array of objects using the PapaParse library.
  *
  * @param {string} text - The CSV string to be parsed.
- * @returns {Papa.ParseResult<Record<string, string>>} The result of the parsing operation,
+ * @returns {ParseResult<Record<string, string>>} The result of the parsing operation,
  * containing the parsed data and any metadata or errors.
  *
  * Notes:
  * - The input string is sanitized by removing double quotes and tab characters before parsing.
  * - The parser uses a comma as the delimiter, skips empty lines, and treats the first row as headers.
  */
-export function parseCSV(text: string): Papa.ParseResult<Record<string, string>> {
+export function parseCSV(text: string): ParseResult<Record<string, string>> {
     return Papa.parse<Record<string, string>>(text.replace(/["\t]/g, ""), {
         delimiter: ",",
         skipEmptyLines: true,
