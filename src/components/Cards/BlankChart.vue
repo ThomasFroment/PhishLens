@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import RadioComponent from "@/components/Cards/RadioComponent.vue";
+import ChartRadioSelector from "@/components/Cards/ChartRadioSelector.vue";
 
 defineProps({
     show: {
@@ -28,7 +28,7 @@ defineProps({
                     </div>
                 </template>
             </VDropdown>
-            <RadioComponent :amount="3" />
+            <ChartRadioSelector :amount="2" />
         </div>
         <slot name="chart" />
     </div>
