@@ -10,7 +10,7 @@ import { PieChart } from "echarts/charts";
 import type { LegendComponentOption, TooltipComponentOption } from "echarts/components";
 import { LegendComponent, TooltipComponent } from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
-import { calcPercentage, sum } from "@/utils/utils.ts";
+import { calcPercentage, sumValues } from "@/utils/utils.ts";
 
 const props = defineProps({
     id: {
@@ -27,7 +27,7 @@ const option = computed<EChartsOption | null>(() => {
     const campaignCountByStatus = countByStatus.value[props.id];
     if (!campaignCountByStatus) return null;
 
-    const total = sum(campaignCountByStatus);
+    const total = sumValues(campaignCountByStatus);
     return {
         textStyle: {
             fontFamily: "Inter"

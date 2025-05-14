@@ -11,6 +11,7 @@ const csvArray = ref<MaybePhishingRecords[]>([]);
  * Updates the reactive CSV array with a new array of phishing records.
  *
  * @param {MaybePhishingRecords[]} newCSVArray - The new array of phishing records or null values.
+ *
  * Notes:
  *  - This function might be removed in the future.
  *  - We allow null values in the array to keep the order of the CSV files (defined by the input component).

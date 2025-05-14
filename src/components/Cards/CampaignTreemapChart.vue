@@ -2,7 +2,7 @@
 import { computed } from "vue";
 import BlankChart from "@/components/Cards/BlankChart.vue";
 import { countByStatusByPosition } from "@/composables/usePhishingMetrics.ts";
-import { calcPercentage, sum } from "@/utils/utils.ts";
+import { calcPercentage, sumValues } from "@/utils/utils.ts";
 import type { ComposeOption } from "echarts/core";
 import { use } from "echarts/core";
 import type { TreemapSeriesOption } from "echarts/charts";
@@ -22,12 +22,12 @@ use([TooltipComponent, TreemapChart, CanvasRenderer]);
 
 type EChartsOption = ComposeOption<TooltipComponentOption | TreemapSeriesOption>;
 
-const translationHashmap = {
+const translationHashmap: Record<string, string> = {
     "Email Sent": "Email reçu",
     "Email Opened": "Email ouvert",
     "Clicked Link": "Lien cliqué",
     "Submitted Data": "Données soumises"
-} as Record<string, string>;
+};
 
 const option = computed<EChartsOption | null>(() => {
     const campaignCountByStatusByPosition = countByStatusByPosition.value[props.id];
@@ -36,7 +36,7 @@ const option = computed<EChartsOption | null>(() => {
     const data = Object.entries(campaignCountByStatusByPosition).map(([key, val]) => {
         return {
             name: key || "Others",
-            value: sum(val),
+            value: sumValues(val),
             children: Object.entries(val).map(([key, val]) => {
                 return {
                     name: translationHashmap[key] || key,
@@ -52,12 +52,8 @@ const option = computed<EChartsOption | null>(() => {
         },
         tooltip: {
             show: true,
-            formatter: function (params: {
-                treeAncestors: { name: string; value: number }[];
-                marker: string;
-                name: string;
-                value: number;
-            }) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            formatter: function (params: any) {
                 switch (params.treeAncestors.length) {
                     case 2:
                         return `<strong>CSV n°${props.id + 1}</strong> <br/> ${params.marker} ${params.name} <br/> <strong>${params.value}</strong> Individus`;
@@ -68,6 +64,8 @@ const option = computed<EChartsOption | null>(() => {
                                 (${calcPercentage(params.value, params.treeAncestors[1].value)}%)
                                 (${calcPercentage(params.value, params.treeAncestors[0].value)}<strong>g</strong>%)
                         `;
+                    default:
+                        return ``;
                 }
             }
         },

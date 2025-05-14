@@ -2,7 +2,7 @@
 import { computed } from "vue";
 import { countByStatus } from "@/composables/usePhishingMetrics.ts";
 import BlankChart from "@/components/Cards/BlankChart.vue";
-import { calcPercentage, sum } from "@/utils/utils.ts";
+import { calcPercentage, sumValues } from "@/utils/utils.ts";
 import { aggregatePhishingStatus } from "@/utils/dataOps.ts";
 
 import type { ComposeOption } from "echarts/core";
@@ -30,8 +30,14 @@ const option = computed<EChartsOption | null>(() => {
     const campaignCountByStatus = countByStatus.value[props.id];
     if (!campaignCountByStatus) return null;
 
-    const aggregatedCount = aggregatePhishingStatus(campaignCountByStatus);
-    const total = sum(campaignCountByStatus);
+    let aggregatedCount;
+    try {
+        aggregatedCount = aggregatePhishingStatus(campaignCountByStatus);
+    } catch (e) {
+        console.error("Error aggregating phishing status:", e);
+        return null;
+    }
+    const total = sumValues(campaignCountByStatus);
 
     return {
         textStyle: {

@@ -1,20 +1,26 @@
 import type { PhishingRecord, StatusType } from "@/utils/parser.ts";
+import { getPositiveOrDefault } from "@/utils/utils.ts";
 
 /**
  * Aggregates phishing status counts by cumulatively summing the counts
  *
- * @param {Record<StatusType, number>} countByStatus - An object mapping phishing statuses to their respective counts.
+ * @param {Partial<Record<StatusType, number>>} countByStatus - An object mapping phishing statuses to their respective counts.
  * @returns {Record<StatusType, number>} An object with aggregated counts for each phishing status.
  */
-export function aggregatePhishingStatus(countByStatus: Record<StatusType, number>): Record<StatusType, number> {
-    const aggregatedCount = {} as Record<StatusType, number>;
+export function aggregatePhishingStatus(
+    countByStatus: Partial<Record<StatusType, number>>
+): Record<StatusType, number> {
+    const submittedData = getPositiveOrDefault("Submitted Data", countByStatus);
+    const clickedLink = submittedData + getPositiveOrDefault("Clicked Link", countByStatus);
+    const emailOpened = clickedLink + getPositiveOrDefault("Email Opened", countByStatus);
+    const emailSent = emailOpened + getPositiveOrDefault("Email Sent", countByStatus);
 
-    aggregatedCount["Submitted Data"] = countByStatus["Submitted Data"];
-    aggregatedCount["Clicked Link"] = aggregatedCount["Submitted Data"] + countByStatus["Clicked Link"];
-    aggregatedCount["Email Opened"] = aggregatedCount["Clicked Link"] + countByStatus["Email Opened"];
-    aggregatedCount["Email Sent"] = aggregatedCount["Email Opened"] + countByStatus["Email Sent"];
-
-    return aggregatedCount;
+    return {
+        "Submitted Data": submittedData,
+        "Clicked Link": clickedLink,
+        "Email Opened": emailOpened,
+        "Email Sent": emailSent
+    };
 }
 
 /**
@@ -33,7 +39,7 @@ export function groupRecordsByValue<K extends keyof PhishingRecord>(
     return records.reduce(
         (acc, curr) => {
             const value = curr[key];
-            acc[value] = acc[value] || [];
+            if (!acc[value]) acc[value] = [];
             acc[value].push(curr);
             return acc;
         },
