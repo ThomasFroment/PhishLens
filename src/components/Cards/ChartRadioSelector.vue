@@ -33,6 +33,7 @@ div {
 }
 
 label {
+    transition: all 150ms var(--default-transition-timing-function);
     cursor: pointer;
     box-shadow: var(--shadow);
     border-radius: 30%;
@@ -49,6 +50,7 @@ label input[type="radio"] {
 }
 
 label:hover:not(.selected) {
+    transform: translateY(-0.1rem);
     box-shadow: var(--shadow-md);
 }
 
