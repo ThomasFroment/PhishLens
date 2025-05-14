@@ -47,7 +47,7 @@ export function parseCSV(text: string): Papa.ParseResult<Record<string, string>>
 export const statusEnum = ["Email Sent", "Email Opened", "Clicked Link", "Submitted Data"] as const;
 
 const phishingRecordSchema = z.object({
-    email: z.string(),
+    email: z.string().email(),
     status: z.enum(statusEnum),
     position: z.string(),
     reported: z.string()
@@ -74,5 +74,5 @@ export function parseStringToCSV(text: string): PhishingRecord[] | undefined {
     const result = phishingRecordSchema.array().safeParse(csv.data);
     if (!result.success) return;
 
-    return result.data as PhishingRecord[];
+    return result.data;
 }
