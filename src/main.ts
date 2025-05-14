@@ -15,7 +15,7 @@ app.use(FloatingVue, {
             $extend: "tooltip",
             $resetCss: true,
             delay: {
-                show: 700,
+                show: 350,
                 hide: 0
             },
             placement: "bottom"
