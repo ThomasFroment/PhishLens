@@ -9,12 +9,12 @@
 
 <script lang="ts" setup>
 import FileForm from "@/components/Form/FileForm.vue";
-import CampaignPolarChart from "@/components/Cards/CampaignPolarChart.vue";
+import CampaignPolarChart from "@/components/Charts/CampaignPolarChart.vue";
 import { registerTheme } from "echarts/core";
 import { provide } from "vue";
 import { THEME_KEY } from "vue-echarts";
-import CampaignDoughnutChart from "@/components/Cards/CampaignDoughnutChart.vue";
-import CampaignTreemapChart from "@/components/Cards/CampaignTreemapChart.vue";
+import CampaignDoughnutChart from "@/components/Charts/CampaignDoughnutChart.vue";
+import CampaignTreemapChart from "@/components/Charts/CampaignTreemapChart.vue";
 
 registerTheme("customTheme", {
     seriesCnt: "3",

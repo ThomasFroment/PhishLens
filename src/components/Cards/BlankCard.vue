@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import ChartRadioSelector from "@/components/Cards/ChartRadioSelector.vue";
+import CardRadioSelector from "@/components/Cards/CardRadioSelector.vue";
 
 defineProps({
     show: {
@@ -11,7 +11,7 @@ defineProps({
 
 <template>
     <div class="card">
-        <div v-if="show" class="header">
+        <div v-if="show" class="header flex-center">
             <VDropdown :theme="'chart-dropdown'">
                 <button class="btn flex-center">
                     <svg viewBox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
@@ -28,20 +28,24 @@ defineProps({
                     </div>
                 </template>
             </VDropdown>
-            <ChartRadioSelector :amount="2" />
+            <CardRadioSelector :amount="2" />
         </div>
-        <slot name="chart" />
+        <div class="charts-wrapper">
+            <slot name="chart" />
+        </div>
     </div>
 </template>
 
 <style scoped>
 .header {
-    display: flex;
     position: absolute;
-    align-items: center;
-    justify-items: center;
     gap: 1rem;
-    z-index: 10;
+    z-index: 1;
+}
+
+.charts-wrapper {
+    width: 100%;
+    height: 100%;
 }
 
 button {

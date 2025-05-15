@@ -4,7 +4,7 @@ import { countByStatusByPosition } from "@/composables/usePhishingMetrics.ts";
 import { calcPercentage, sumValues } from "@/utils/utils.ts";
 import { translationHashmap } from "@/utils/translation.ts";
 
-import BlankChart from "@/components/Cards/BlankChart.vue";
+import BlankCard from "@/components/Cards/BlankCard.vue";
 
 import type { ComposeOption } from "echarts/core";
 import { use } from "echarts/core";
@@ -102,7 +102,7 @@ const option = computed<EChartsOption | null>(() => {
 </script>
 
 <template>
-    <BlankChart :show="option !== null">
+    <BlankCard :show="option !== null">
         <template #dropdown-content>
             <p v-html="`Ce diagramme représente les résultats de la campagne du <b>CSV n°${props.id + 1}.</b>`" />
             <p>
@@ -113,5 +113,5 @@ const option = computed<EChartsOption | null>(() => {
         <template #chart>
             <v-chart v-if="option !== null" :option="option" />
         </template>
-    </BlankChart>
+    </BlankCard>
 </template>
