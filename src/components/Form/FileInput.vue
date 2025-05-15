@@ -75,8 +75,13 @@ function onCrossClick() {
 .file-upload-wrapper {
     display: flex;
     align-items: center;
+    border-bottom: 2px solid transparent;
     border-radius: 0.5rem;
     height: 2.75rem;
+}
+
+.file-upload-wrapper:hover {
+    border-bottom: 2px solid var(--color-accent);
 }
 
 .file-upload-wrapper--active {
@@ -104,7 +109,7 @@ function onCrossClick() {
 .file-upload-label svg {
     width: 1.75rem;
     height: 1.75rem;
-    fill: var(--color-slate-700);
+    fill: var(--color-text);
 }
 
 .file-upload-clear-btn {

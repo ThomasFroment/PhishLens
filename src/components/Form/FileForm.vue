@@ -37,7 +37,7 @@ async function submitHandler() {
     cursor: pointer;
     margin-left: 0.75rem;
     border: none;
-    border-bottom: 2px solid var(--color-background-offset);
+    border-bottom: 2px solid transparent;
     border-radius: 0.75rem;
     background-color: var(--color-background-offset);
     padding: 0 1.5rem;

@@ -38,7 +38,7 @@ import HeaderRadioSelector from "@/components/Cards/Utils/HeaderRadioSelector.vu
 
 button {
     cursor: pointer;
-    border: var(--color-button-border) 1px solid;
+    border: none;
 
     border-radius: 100%;
     background-color: var(--color-background-offset);
