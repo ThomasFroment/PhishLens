@@ -1,8 +1,8 @@
 <template>
     <FileForm />
     <div class="chart-grid">
-        <CardTemplate :id="0" :option="option" class="temp" />
-        <CardTemplate :id="0" :option="option2" class="temp" />
+        <DoughnutPolarCombo :id="0" />
+        <TreemapStackedbarCombo :id="0" />
     </div>
 </template>
 
@@ -11,32 +11,8 @@ import FileForm from "@/components/Form/FileForm.vue";
 import { registerTheme } from "echarts/core";
 import { provide } from "vue";
 import { THEME_KEY } from "vue-echarts";
-import CardTemplate from "@/components/Cards/Utils/CardTemplate.vue";
-import type { ChartOption } from "@/types";
-import DoughnutChart from "@/components/Charts/DoughnutChart.vue";
-import DoughnutDoc from "@/components/Charts/Doc/DoughnutDoc.vue";
-import PolarChart from "@/components/Charts/PolarChart.vue";
-import PolarDoc from "@/components/Charts/Doc/PolarDoc.vue";
-import TreemapChart from "@/components/Charts/TreemapChart.vue";
-import TreemapDoc from "@/components/Charts/Doc/TreemapDoc.vue";
-
-const option: ChartOption[] = [
-    {
-        chart: DoughnutChart,
-        doc: DoughnutDoc
-    },
-    {
-        chart: PolarChart,
-        doc: PolarDoc
-    }
-];
-
-const option2: ChartOption[] = [
-    {
-        chart: TreemapChart,
-        doc: TreemapDoc
-    }
-];
+import DoughnutPolarCombo from "@/components/Cards/DoughnutPolarCombo.vue";
+import TreemapStackedbarCombo from "@/components/Cards/TreemapStackedbarCombo.vue";
 
 registerTheme("customTheme", {
     seriesCnt: "3",
