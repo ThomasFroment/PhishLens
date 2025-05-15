@@ -1,20 +1,42 @@
 <template>
     <FileForm />
     <div class="chart-grid">
-        <CampaignPolarChart :id="0" class="temp" />
-        <CampaignDoughnutChart :id="0" class="temp" />
-        <CampaignTreemapChart :id="0" class="temp" />
+        <TemplateCard :id="0" :option="option" class="temp" />
+        <TemplateCard :id="0" :option="option2" class="temp" />
     </div>
 </template>
 
 <script lang="ts" setup>
 import FileForm from "@/components/Form/FileForm.vue";
-import CampaignPolarChart from "@/components/Charts/CampaignPolarChart.vue";
 import { registerTheme } from "echarts/core";
 import { provide } from "vue";
 import { THEME_KEY } from "vue-echarts";
-import CampaignDoughnutChart from "@/components/Charts/CampaignDoughnutChart.vue";
-import CampaignTreemapChart from "@/components/Charts/CampaignTreemapChart.vue";
+import TemplateCard from "@/components/Cards/Utils/TemplateCard.vue";
+import type { ChartOption } from "@/types";
+import DoughnutChart from "@/components/Charts/DoughnutChart.vue";
+import DoughnutDoc from "@/components/Charts/Doc/DoughnutDoc.vue";
+import PolarChart from "@/components/Charts/PolarChart.vue";
+import PolarDoc from "@/components/Charts/Doc/PolarDoc.vue";
+import TreemapChart from "@/components/Charts/TreemapChart.vue";
+import TreemapDoc from "@/components/Charts/Doc/TreemapDoc.vue";
+
+const option: ChartOption[] = [
+    {
+        chart: DoughnutChart,
+        doc: DoughnutDoc
+    },
+    {
+        chart: PolarChart,
+        doc: PolarDoc
+    }
+];
+
+const option2: ChartOption[] = [
+    {
+        chart: TreemapChart,
+        doc: TreemapDoc
+    }
+];
 
 registerTheme("customTheme", {
     seriesCnt: "3",
@@ -150,7 +172,7 @@ provide(THEME_KEY, "customTheme");
 <style scoped>
 .chart-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(40rem, 1fr));
     grid-auto-rows: minmax(40rem, 1fr);
     gap: 1rem;
 }

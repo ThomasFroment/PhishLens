@@ -1,25 +1,21 @@
 <script lang="ts" setup>
-import { getCurrentInstance, ref } from "vue";
-
-defineProps({
-    amount: {
-        type: Number,
-        required: true
-    }
-});
+import { getCurrentInstance, inject, ref } from "vue";
 
 const instance = getCurrentInstance();
-if (!instance) throw new Error("getCurrentInstance() is null");
+if (!instance) throw new Error("instance is null");
 const uuid = ref(instance.uid);
 
-const selected = ref(1);
-
-defineExpose(selected);
+const chartAmount = inject<number>("chartAmount");
+const selected = inject<number>("selectedChart");
 </script>
 
 <template>
-    <div>
-        <label v-for="i in amount" :key="`label-${i}`" :class="['flex-center', { selected: selected === i }]">
+    <div v-if="chartAmount && chartAmount > 1">
+        <label
+            v-for="i in chartAmount"
+            :key="`label-${i}`"
+            :class="['flex-center unselectable', { selected: selected === i }]"
+        >
             <input :id="`${uuid}-input-${i}`" v-model="selected" :name="`${uuid}-radio`" :value="i" type="radio" />
             {{ i }}
         </label>

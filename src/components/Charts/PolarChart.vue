@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, inject, type Ref, watch } from "vue";
 import { countByStatus } from "@/composables/usePhishingMetrics.ts";
 import { calcPercentage, sumValues } from "@/utils/utils.ts";
 import { aggregatePhishingStatus } from "@/utils/dataOps.ts";
 import { translationHashmap } from "@/utils/translation.ts";
-
-import BlankCard from "@/components/Cards/BlankCard.vue";
 
 import type { ComposeOption } from "echarts/core";
 import { use } from "echarts/core";
@@ -15,12 +13,9 @@ import type { LegendComponentOption, PolarComponentOption, TooltipComponentOptio
 import { LegendComponent, PolarComponent, TooltipComponent } from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
 
-const props = defineProps({
-    id: {
-        type: Number,
-        required: true
-    }
-});
+const { id } = defineProps<{
+    id: number;
+}>();
 
 use([LegendComponent, PolarComponent, TooltipComponent, BarChart, CanvasRenderer]);
 type EChartsOption = ComposeOption<
@@ -28,7 +23,7 @@ type EChartsOption = ComposeOption<
 >;
 
 const option = computed<EChartsOption | null>(() => {
-    const campaignCountByStatus = countByStatus.value[props.id];
+    const campaignCountByStatus = countByStatus.value[id];
     if (!campaignCountByStatus) return null;
 
     let aggregatedCount;
@@ -66,7 +61,7 @@ const option = computed<EChartsOption | null>(() => {
             trigger: "item",
             formatter: function (params) {
                 // @ts-expect-error All those properties are not direct properties of params so ts get emotional
-                return `<strong>CSV n°${props.id + 1}</strong> <br/> ${params.marker} ${params.seriesName}: <strong>${params.value}</strong> (${calcPercentage(params.value, total)}%)`;
+                return `<strong>CSV n°${id + 1}</strong> <br/> ${params.marker} ${params.seriesName}: <strong>${params.value}</strong> (${calcPercentage(params.value, total)}%)`;
             }
         },
         series: [
@@ -97,22 +92,18 @@ const option = computed<EChartsOption | null>(() => {
         ]
     };
 });
+
+const isVisible = inject<Ref<boolean>>("isVisible");
+watch(option, () => {
+    if (!isVisible) return;
+    if (option.value === null) {
+        isVisible.value = false;
+        return;
+    }
+    isVisible.value = true;
+});
 </script>
 
 <template>
-    <BlankCard :show="option !== null">
-        <template #dropdown-content>
-            <p v-html="`Ce diagramme représente les résultats de la campagne du <b>CSV n°${props.id + 1}.</b>`" />
-            <p>
-                Chaque barre inclut cumulativement les utilisateurs des étapes suivantes : par exemple, les personnes
-                ayant cliqué sur le lien incluent aussi celles ayant ensuite soumis leurs données.
-            </p>
-            <p>
-                Ainsi, chaque étape regroupe tous les utilisateurs ayant atteint ce niveau ou au-delà dans la campagne.
-            </p>
-        </template>
-        <template #chart>
-            <v-chart v-if="option !== null" :option="option" />
-        </template>
-    </BlankCard>
+    <v-chart v-if="isVisible" :option="option" />
 </template>

@@ -1,10 +1,8 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, inject, type Ref, watch } from "vue";
 import { countByStatusByPosition } from "@/composables/usePhishingMetrics.ts";
 import { calcPercentage, sumValues } from "@/utils/utils.ts";
 import { translationHashmap } from "@/utils/translation.ts";
-
-import BlankCard from "@/components/Cards/BlankCard.vue";
 
 import type { ComposeOption } from "echarts/core";
 import { use } from "echarts/core";
@@ -14,18 +12,15 @@ import type { TooltipComponentOption } from "echarts/components";
 import { TooltipComponent } from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
 
-const props = defineProps({
-    id: {
-        type: Number,
-        required: true
-    }
-});
+const { id } = defineProps<{
+    id: number;
+}>();
 
 use([TooltipComponent, TreemapChart, CanvasRenderer]);
 type EChartsOption = ComposeOption<TooltipComponentOption | TreemapSeriesOption>;
 
 const option = computed<EChartsOption | null>(() => {
-    const campaignCountByStatusByPosition = countByStatusByPosition.value[props.id];
+    const campaignCountByStatusByPosition = countByStatusByPosition.value[id];
     if (!campaignCountByStatusByPosition) return null;
 
     const data = Object.entries(campaignCountByStatusByPosition).map(([key, val]) => {
@@ -51,9 +46,9 @@ const option = computed<EChartsOption | null>(() => {
             formatter: function (params: any) {
                 switch (params.treeAncestors.length) {
                     case 2:
-                        return `<strong>CSV n°${props.id + 1}</strong> <br/> ${params.marker} ${params.name} <br/> <strong>${params.value}</strong> Individus`;
+                        return `<strong>CSV n°${id + 1}</strong> <br/> ${params.marker} ${params.name} <br/> <strong>${params.value}</strong> Individus`;
                     case 3:
-                        return `<strong>CSV n°${props.id + 1}</strong> <br/>
+                        return `<strong>CSV n°${id + 1}</strong> <br/>
                                 ${params.marker} ${params.treeAncestors[1].name} <br/>
                                 ${params.name}: <strong>${params.value}</strong>
                                 (${calcPercentage(params.value, params.treeAncestors[1].value)}%)
@@ -66,7 +61,7 @@ const option = computed<EChartsOption | null>(() => {
         },
         series: [
             {
-                name: `CSV ${props.id + 1}`,
+                name: `CSV ${id + 1}`,
                 colorMappingBy: "value",
                 visibleMin: 300,
                 roam: false,
@@ -99,19 +94,18 @@ const option = computed<EChartsOption | null>(() => {
         ]
     };
 });
+
+const isVisible = inject<Ref<boolean>>("isVisible");
+watch(option, () => {
+    if (!isVisible) return;
+    if (option.value === null) {
+        isVisible.value = false;
+        return;
+    }
+    isVisible.value = true;
+});
 </script>
 
 <template>
-    <BlankCard :show="option !== null">
-        <template #dropdown-content>
-            <p v-html="`Ce diagramme représente les résultats de la campagne du <b>CSV n°${props.id + 1}.</b>`" />
-            <p>
-                Chaque zone du treemap correspond à un service de l’organisation, puis est subdivisée selon les
-                résultats de la campagne au sein du service.
-            </p>
-        </template>
-        <template #chart>
-            <v-chart v-if="option !== null" :option="option" />
-        </template>
-    </BlankCard>
+    <v-chart v-if="isVisible" :option="option" />
 </template>
