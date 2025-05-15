@@ -37,10 +37,15 @@ async function submitHandler() {
     cursor: pointer;
     margin-left: 0.75rem;
     border: none;
+    border-bottom: 2px solid var(--color-background-offset);
     border-radius: 0.75rem;
-    background-color: var(--color-slate-700);
+    background-color: var(--color-background-offset);
     padding: 0 1.5rem;
     height: 2.75rem;
-    color: var(--color-slate-50);
+    font-weight: bold;
+}
+
+.submit-button:hover {
+    border-bottom: 2px solid var(--color-accent);
 }
 </style>

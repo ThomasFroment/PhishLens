@@ -1,8 +1,11 @@
-body {
-    background-color: var(--color-gray-50);
-    overflow-x: hidden;
-    color: var(--color-slate-900);
+* {
+    color: var(--color-text);
     font-family: Inter, sans-serif;
+}
+
+body {
+    background-color: var(--color-background);
+    overflow-x: hidden;
 }
 
 .unselectable {
@@ -29,7 +32,7 @@ body {
 .card {
     box-shadow: var(--shadow-md);
     border-radius: 1rem;
-    background-color: var(--color-slate-50);
+    background-color: var(--color-background-offset);
     padding: 1rem;
 }
 
@@ -46,13 +49,13 @@ body {
 .v-popper--theme-btn-tooltip .v-popper__inner {
     box-shadow: var(--shadow);
     border-radius: 0.5rem;
-    background: var(--color-slate-50);
+    background: var(--color-background-offset);
     padding: 0.3rem 0.8rem;
     color: var(--color-slate-900);
 }
 
 .v-popper--theme-btn-tooltip .v-popper__arrow-outer {
-    border-color: var(--color-slate-50);
+    border-color: var(--color-background-offset);
 }
 
 .v-popper--theme-btn-tooltip .v-popper__arrow-inner {
@@ -62,13 +65,13 @@ body {
 .v-popper--theme-chart-dropdown .v-popper__inner {
     box-shadow: var(--shadow);
     border-radius: 0.5rem;
-    background: var(--color-slate-50);
+    background: var(--color-background-offset);
     padding: 0.3rem 0.8rem;
     color: var(--color-slate-900);
 }
 
 .v-popper--theme-chart-dropdown .v-popper__arrow-outer {
-    border-color: var(--color-slate-50);
+    border-color: var(--color-background-offset);
 }
 
 .v-popper--theme-chart-dropdown .v-popper__arrow-inner {

@@ -80,7 +80,7 @@ function onCrossClick() {
 }
 
 .file-upload-wrapper--active {
-    border-bottom: 2px solid var(--color-cyan-500);
+    border-bottom: 2px solid var(--color-accent);
 }
 
 .file-upload-label {
@@ -121,11 +121,11 @@ function onCrossClick() {
     transition: all 150ms var(--default-transition-timing-function);
     width: 1.2rem;
     height: 1.2rem;
-    fill: var(--color-cyan-800);
+    fill: var(--color-text);
 }
 
 .file-upload-clear-btn:hover svg {
     transform: rotate(90deg);
-    fill: var(--color-cyan-600);
+    fill: var(--color-accent);
 }
 </style>

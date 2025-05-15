@@ -38,20 +38,24 @@ import HeaderRadioSelector from "@/components/Cards/Utils/HeaderRadioSelector.vu
 
 button {
     cursor: pointer;
-    border: var(--color-slate-200) solid 1px;
+    border: var(--color-button-border) 1px solid;
 
     border-radius: 100%;
-    background-color: var(--color-slate-50);
+    background-color: var(--color-background-offset);
     padding: 0.3rem;
 }
 
 button svg {
     transition: all 150ms var(--default-transition-timing-function);
-    fill: var(--color-slate-400);
+    fill: var(--color-neutral-500);
     height: 1.5rem;
 }
 
 button:hover svg {
-    fill: var(--color-slate-500);
+    fill: var(--color-accent);
+}
+
+.v-popper--shown svg {
+    fill: var(--color-accent);
 }
 </style>

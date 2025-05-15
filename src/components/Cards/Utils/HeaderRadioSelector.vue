@@ -33,10 +33,9 @@ label {
     cursor: pointer;
     box-shadow: var(--shadow);
     border-radius: 30%;
-    background-color: var(--color-slate-50);
+    background-color: var(--color-background-offset);
     width: 2rem;
     height: 2rem;
-    color: var(--color-slate-700);
     font-weight: bold;
 }
 
@@ -48,6 +47,7 @@ label input[type="radio"] {
 label:hover:not(.selected) {
     transform: translateY(-0.1rem);
     box-shadow: var(--shadow-md);
+    color: var(--color-accent);
 }
 
 label:hover.selected {
@@ -58,6 +58,6 @@ label:hover.selected {
     box-shadow:
         inset 0 1px 3px 0 rgb(0 0 0 / 0.1),
         inset 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    background-color: var(--color-slate-100);
+    background-color: hsla(0, 0%, 0%, 2%);
 }
 </style>
