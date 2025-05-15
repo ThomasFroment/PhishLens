@@ -1,8 +1,8 @@
 <template>
     <FileForm />
     <div class="chart-grid">
-        <TemplateCard :id="0" :option="option" class="temp" />
-        <TemplateCard :id="0" :option="option2" class="temp" />
+        <CardTemplate :id="0" :option="option" class="temp" />
+        <CardTemplate :id="0" :option="option2" class="temp" />
     </div>
 </template>
 
@@ -11,7 +11,7 @@ import FileForm from "@/components/Form/FileForm.vue";
 import { registerTheme } from "echarts/core";
 import { provide } from "vue";
 import { THEME_KEY } from "vue-echarts";
-import TemplateCard from "@/components/Cards/Utils/TemplateCard.vue";
+import CardTemplate from "@/components/Cards/Utils/CardTemplate.vue";
 import type { ChartOption } from "@/types";
 import DoughnutChart from "@/components/Charts/DoughnutChart.vue";
 import DoughnutDoc from "@/components/Charts/Doc/DoughnutDoc.vue";
