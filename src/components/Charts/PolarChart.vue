@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, inject, type Ref, watch } from "vue";
+import { computed } from "vue";
 import { countByStatus } from "@/composables/usePhishingMetrics.ts";
 import { calcPercentage, sumValues } from "@/utils/utils.ts";
 import { aggregatePhishingStatus } from "@/utils/dataOps.ts";
@@ -12,6 +12,7 @@ import { BarChart } from "echarts/charts";
 import type { LegendComponentOption, PolarComponentOption, TooltipComponentOption } from "echarts/components";
 import { LegendComponent, PolarComponent, TooltipComponent } from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
+import ChartTemplate from "@/components/Charts/ChartTemplate.vue";
 
 const { id } = defineProps<{
     id: number;
@@ -92,18 +93,8 @@ const option = computed<EChartsOption | null>(() => {
         ]
     };
 });
-
-const isVisible = inject<Ref<boolean>>("isVisible");
-watch(option, () => {
-    if (!isVisible) return;
-    if (option.value === null) {
-        isVisible.value = false;
-        return;
-    }
-    isVisible.value = true;
-});
 </script>
 
 <template>
-    <v-chart v-if="isVisible" :option="option" />
+    <ChartTemplate :option="option" />
 </template>
