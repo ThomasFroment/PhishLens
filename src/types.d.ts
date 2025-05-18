@@ -3,7 +3,7 @@ import type { Component } from "vue";
 
 export type MaybePhishingRecords = PhishingRecord[] | null;
 
-export interface ChartOption {
+export interface ChartDefinition {
     chart: Component;
     doc: Component;
 }

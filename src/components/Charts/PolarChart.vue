@@ -12,7 +12,6 @@ import { BarChart } from "echarts/charts";
 import type { LegendComponentOption, PolarComponentOption, TooltipComponentOption } from "echarts/components";
 import { LegendComponent, PolarComponent, TooltipComponent } from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
-import ChartTemplate from "@/components/Charts/ChartTemplate.vue";
 
 const { id } = defineProps<{
     id: number;
@@ -93,8 +92,12 @@ const option = computed<EChartsOption | null>(() => {
         ]
     };
 });
+
+defineExpose({
+    option
+});
 </script>
 
 <template>
-    <ChartTemplate :option="option" />
+    <v-chart :option="option ?? {}" />
 </template>

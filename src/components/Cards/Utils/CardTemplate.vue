@@ -1,29 +1,41 @@
 <script lang="ts" setup>
-import type { ChartOption } from "@/types.d.ts";
-import { computed, provide, ref } from "vue";
+import type { ChartDefinition } from "@/types.d.ts";
+import { computed, provide, ref, unref } from "vue";
 import CardHeader from "@/components/Cards/Utils/CardHeader.vue";
 
-const { option } = defineProps<{
+const { chartDefinitions } = defineProps<{
     id: number;
-    option: ChartOption[];
+    chartDefinitions: ChartDefinition[];
 }>();
 
-const currentOption = computed(() => option[selectedChart.value] ?? option[0]);
-const selectedChart = ref<number>(1);
-const isVisible = ref<boolean>(false);
+const chartCount = chartDefinitions.length;
 
-provide("chartAmount", option.length);
-provide("selectedChart", selectedChart);
-provide("isVisible", isVisible);
+const selectedChart = chartCount > 1 ? ref(1) : 1;
+const currDefinition = computed(() => {
+    if (chartCount < 1) return null;
+    const index = (unref(selectedChart) ?? 1) - 1;
+    return chartDefinitions[index] ?? chartDefinitions[0];
+});
+
+if (chartCount > 1) {
+    provide("chartAmount", chartCount);
+    provide("selectedChart", selectedChart);
+}
+
+const chartComponentRef = ref<{ option?: unknown } | null>(null);
+const isVisible = computed<boolean>(() => {
+    const optionValue = chartComponentRef.value?.option ?? null;
+    return optionValue !== null;
+});
 </script>
 
 <template>
-    <div class="card">
-        <CardHeader v-if="isVisible">
+    <div class="card" v-if="currDefinition">
+        <CardHeader v-show="isVisible">
             <template #dropdown-content>
-                <component :is="currentOption.doc" :id="id" />
+                <component :is="currDefinition.doc" :id="id" />
             </template>
         </CardHeader>
-        <component :is="currentOption.chart" :id="id" />
+        <component :is="currDefinition.chart" :id="id" ref="chartComponentRef" />
     </div>
 </template>

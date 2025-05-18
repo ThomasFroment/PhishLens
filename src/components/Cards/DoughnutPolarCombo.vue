@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import CardTemplate from "@/components/Cards/Utils/CardTemplate.vue";
-import type { ChartOption } from "@/types";
+import type { ChartDefinition } from "@/types";
 import DoughnutChart from "@/components/Charts/DoughnutChart.vue";
 import DoughnutDoc from "@/components/Charts/Doc/DoughnutDoc.vue";
 import PolarChart from "@/components/Charts/PolarChart.vue";
@@ -10,7 +10,7 @@ defineProps<{
     id: number;
 }>();
 
-const option: ChartOption[] = [
+const chartDefinitions: ChartDefinition[] = [
     {
         chart: DoughnutChart,
         doc: DoughnutDoc
@@ -23,5 +23,5 @@ const option: ChartOption[] = [
 </script>
 
 <template>
-    <CardTemplate :id="id" :option="option" />
+    <CardTemplate :id="id" :chartDefinitions="chartDefinitions" />
 </template>

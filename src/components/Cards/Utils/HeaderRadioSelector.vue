@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { getCurrentInstance, inject, ref } from "vue";
+import { getCurrentInstance, inject, type Ref, ref } from "vue";
 
 const instance = getCurrentInstance();
 if (!instance) throw new Error("instance is null");
 const uuid = ref(instance.uid);
 
-const chartAmount = inject<number>("chartAmount");
-const selected = inject<number>("selectedChart");
+const chartAmount = inject<number | null>("chartAmount", null);
+const selected = inject<Ref<number> | null>("selectedChart", null);
 </script>
 
 <template>

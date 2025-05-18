@@ -11,7 +11,6 @@ import { TreemapChart } from "echarts/charts";
 import type { TooltipComponentOption } from "echarts/components";
 import { TooltipComponent } from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
-import ChartTemplate from "@/components/Charts/ChartTemplate.vue";
 
 const { id } = defineProps<{
     id: number;
@@ -95,8 +94,12 @@ const option = computed<EChartsOption | null>(() => {
         ]
     };
 });
+
+defineExpose({
+    option
+});
 </script>
 
 <template>
-    <ChartTemplate :option="option" />
+    <v-chart :option="option ?? {}" />
 </template>
