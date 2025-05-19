@@ -73,6 +73,24 @@ const recordsByPosition = computed(() => {
 });
 
 /**
+ * Computes a reactive array of counts of phishing records grouped by their position.
+ *
+ * @returns {ComputedRef<(Record<string, number> | null)[]>} A computed reference
+ * containing an array where each element is either a record of counts of phishing records
+ * grouped by position or `null` if the corresponding CSV is `null`.
+ *
+ * Notes:
+ * - If a CSV is `null`, the corresponding element in the result will also be `null` (to maintain the order).
+ * - The counts are derived from the `recordsByPosition` computed property.
+ */
+export const countByPosition = computed(() => {
+    return recordsByPosition.value.map((csv) => {
+        if (!csv) return null;
+        return countElementsInObject(csv);
+    });
+})
+
+/**
  * Computes a reactive array of phishing records grouped by their status themselves grouped by position.
  *
  * @returns {ComputedRef<(Record<string, Record<StatusType, PhishingRecord[]> | null>)[]>} A computed reference
