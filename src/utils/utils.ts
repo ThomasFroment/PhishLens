@@ -9,6 +9,20 @@ export function sumValues(obj: Record<string, number>): number {
 }
 
 /**
+ * Rounds a number to a specified number of decimal places.
+ *
+ * @param {number} num - The number to be rounded.
+ * @param {number} [nbDecimals=1] - The number of decimal places to round to.
+ * @returns {number} The rounded number.
+ */
+export function roundToNDecimal(num: number, nbDecimals: number = 1): number {
+    if (isNaN(num) || nbDecimals < 0 || !Number.isInteger(nbDecimals)) {
+        return 0;
+    }
+    return Math.round((num + Number.EPSILON) * Math.pow(10, nbDecimals)) / Math.pow(10, nbDecimals);
+}
+
+/**
  * Calculates the percentage of a value relative to a total.
  *
  * @param {number} val - The value to calculate the percentage for.
@@ -22,7 +36,7 @@ export function sumValues(obj: Record<string, number>): number {
 export function calcPercentage(val: number, total: number): number {
     if (total <= 0 || val <= 0) return 0;
     const percentage = (val / total) * 100;
-    return Math.round(percentage * 10) / 10;
+    return roundToNDecimal(percentage);
 }
 
 /**
