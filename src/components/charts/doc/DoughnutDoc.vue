@@ -13,6 +13,6 @@ defineProps<{
     </p>
     <p>
         Ainsi, les données ne sont pas additives — elles permettent d’identifier précisément où les utilisateurs se sont
-        arrêtés dans le parcours de la campagne.
+        arrêtés lors de la campagne.
     </p>
 </template>
