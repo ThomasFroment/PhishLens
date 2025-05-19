@@ -3,8 +3,11 @@ import { computed } from "vue";
 import { countByPosition, countByStatusByPosition } from "@/composables/usePhishingMetrics.ts";
 import { translationHashmap } from "@/utils/translation.ts";
 
+import type { ComposeOption } from "echarts/core";
 import { use } from "echarts/core";
+import type { BarSeriesOption } from "echarts/charts";
 import { BarChart } from "echarts/charts";
+import type { GridComponentOption } from "echarts/components";
 import {
     DataZoomComponent,
     type DataZoomComponentOption,
@@ -15,9 +18,6 @@ import {
     type TooltipComponentOption
 } from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
-import type { ComposeOption } from "echarts/core";
-import type { BarSeriesOption } from "echarts/charts";
-import type { GridComponentOption } from "echarts/components";
 import { roundToNDecimal } from "@/utils/utils.ts";
 
 const { id } = defineProps<{
