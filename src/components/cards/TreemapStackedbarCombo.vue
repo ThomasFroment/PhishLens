@@ -6,6 +6,7 @@ import CardTemplate from "@/components/cards/utils/CardTemplate.vue";
 import StackedbarChart from "@/components/charts/StackedbarChart.vue";
 import StackedbarDoc from "@/components/charts/doc/StackedbarDoc.vue";
 import HeatmapChart from "@/components/charts/HeatmapChart.vue";
+import HeatmapDoc from "@/components/charts/doc/HeatmapDoc.vue";
 
 defineProps<{
     id: number;
@@ -21,7 +22,8 @@ const chartDefinitions: ChartDefinition[] = [
         doc: StackedbarDoc
     },
     {
-        chart: HeatmapChart
+        chart: HeatmapChart,
+        doc: HeatmapDoc
     }
 ];
 </script>
