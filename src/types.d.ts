@@ -5,5 +5,5 @@ export type MaybePhishingRecords = PhishingRecord[] | null;
 
 export interface ChartDefinition {
     chart: Component;
-    doc: Component;
+    doc?: Component;
 }
