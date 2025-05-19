@@ -22,7 +22,7 @@ registerTheme("customTheme", {
     textColorShow: false,
     textColor: "#333",
     markTextColor: "#eeeeee",
-    color: ["#516b91", "#59c4e6", "#edafda", "#93b7e3", "#a5e7f0", "#cbb0e3" /*, "#ec78c8", "#e6a1f4"*/],
+    color: ["#516b91", "#59c4e6", "#edafda", "#93b7e3", "#a5e7f0", "#cbb0e3"],
     borderColor: "#ccc",
     borderWidth: 0,
     visualMapColor: ["#516b91", "#59c4e6", "#a5e7f0"],
