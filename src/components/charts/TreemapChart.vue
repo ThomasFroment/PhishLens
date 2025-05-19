@@ -25,7 +25,7 @@ const option = computed<EChartsOption | null>(() => {
 
     const data = Object.entries(campaignCountByStatusByPosition).map(([key, val]) => {
         return {
-            name: key || "Autres",
+            name: key || "AUTRES",
             value: sumValues(val),
             children: Object.entries(val).map(([key, val]) => {
                 return {
@@ -62,12 +62,11 @@ const option = computed<EChartsOption | null>(() => {
         series: [
             {
                 name: `CSV ${id + 1}`,
-                colorMappingBy: "value",
                 visibleMin: 300,
                 roam: false,
                 width: "100%",
                 height: "80%",
-                colorSaturation: [0.4, 0.5],
+                colorSaturation: [0.5, 0.6],
                 upperLabel: {
                     show: true,
                     height: 20
