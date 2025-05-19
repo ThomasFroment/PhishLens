@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import HeaderRadioSelector from "@/components/Cards/Utils/HeaderRadioSelector.vue";
+import HeaderRadioSelector from "@/components/cards/utils/HeaderRadioSelector.vue";
 </script>
 
 <template>

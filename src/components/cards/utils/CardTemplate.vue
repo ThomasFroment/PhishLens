@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { ChartDefinition } from "@/types.d.ts";
 import { computed, provide, ref, unref } from "vue";
-import CardHeader from "@/components/Cards/Utils/CardHeader.vue";
+import CardHeader from "@/components/cards/utils/CardHeader.vue";
 
 const { chartDefinitions } = defineProps<{
     id: number;

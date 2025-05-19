@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import CardTemplate from "@/components/Cards/Utils/CardTemplate.vue";
+import CardTemplate from "@/components/cards/utils/CardTemplate.vue";
 import type { ChartDefinition } from "@/types";
-import DoughnutChart from "@/components/Charts/DoughnutChart.vue";
-import DoughnutDoc from "@/components/Charts/Doc/DoughnutDoc.vue";
-import PolarChart from "@/components/Charts/PolarChart.vue";
-import PolarDoc from "@/components/Charts/Doc/PolarDoc.vue";
+import DoughnutChart from "@/components/charts/DoughnutChart.vue";
+import DoughnutDoc from "@/components/charts/doc/DoughnutDoc.vue";
+import PolarChart from "@/components/charts/PolarChart.vue";
+import PolarDoc from "@/components/charts/doc/PolarDoc.vue";
 
 defineProps<{
     id: number;

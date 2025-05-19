@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { type ComponentPublicInstance, ref } from "vue";
-import FileInput from "@/components/Form/FileInput.vue";
+import FileInput from "@/components/form/FileInput.vue";
 import { useUpdateCSV } from "@/composables/usePhishingMetrics.ts";
 import type { PhishingRecord } from "@/utils/parser.ts";
 

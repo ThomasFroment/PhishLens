@@ -7,12 +7,12 @@
 </template>
 
 <script lang="ts" setup>
-import FileForm from "@/components/Form/FileForm.vue";
+import FileForm from "@/components/form/FileForm.vue";
 import { registerTheme } from "echarts/core";
 import { provide } from "vue";
 import { THEME_KEY } from "vue-echarts";
-import DoughnutPolarCombo from "@/components/Cards/DoughnutPolarCombo.vue";
-import TreemapStackedbarCombo from "@/components/Cards/TreemapStackedbarCombo.vue";
+import DoughnutPolarCombo from "@/components/cards/DoughnutPolarCombo.vue";
+import TreemapStackedbarCombo from "@/components/cards/TreemapStackedbarCombo.vue";
 
 registerTheme("customTheme", {
     seriesCnt: "3",
