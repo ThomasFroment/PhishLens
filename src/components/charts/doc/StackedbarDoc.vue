@@ -7,8 +7,8 @@ defineProps<{
 <template>
     <p v-html="`Ce diagramme représente les résultats de la campagne du <b>CSV n°${id + 1}.</b>`" />
     <p>
-        Chaque barre représente la répartition de la dernière étape atteinte par les utilisateurs dans chaque service.
-        Par exemple, les personnes ayant soumis leurs données ne sont comptées que dans cette catégorie, et non dans les
+        Chaque barre représente la répartition de la dernière étape atteinte par les utilisateurs de chaque service. Par
+        exemple, les personnes ayant soumis leurs données ne sont comptées que dans cette catégorie, et non dans les
         étapes précédentes.
     </p>
     <p>

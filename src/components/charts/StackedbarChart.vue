@@ -3,27 +3,31 @@ import { computed } from "vue";
 import { countByPosition, countByStatusByPosition } from "@/composables/usePhishingMetrics.ts";
 import { translationHashmap } from "@/utils/translation.ts";
 
-import { use } from 'echarts/core';
-import { BarChart } from 'echarts/charts';
+import { use } from "echarts/core";
+import { BarChart } from "echarts/charts";
 import {
     DataZoomComponent,
     type DataZoomComponentOption,
     GridComponent,
     LegendComponent,
-    type LegendComponentOption, TooltipComponent, type TooltipComponentOption
+    type LegendComponentOption,
+    TooltipComponent,
+    type TooltipComponentOption
 } from "echarts/components";
-import { CanvasRenderer } from 'echarts/renderers';
-import type { ComposeOption } from 'echarts/core';
-import type { BarSeriesOption } from 'echarts/charts';
-import type { GridComponentOption } from 'echarts/components';
+import { CanvasRenderer } from "echarts/renderers";
+import type { ComposeOption } from "echarts/core";
+import type { BarSeriesOption } from "echarts/charts";
+import type { GridComponentOption } from "echarts/components";
 import { roundToNDecimal } from "@/utils/utils.ts";
 
 const { id } = defineProps<{
     id: number;
 }>();
 
-use([LegendComponent,TooltipComponent, GridComponent, DataZoomComponent, BarChart, CanvasRenderer]);
-type EChartsOption = ComposeOption<TooltipComponentOption | LegendComponentOption | DataZoomComponentOption | GridComponentOption | BarSeriesOption>;
+use([LegendComponent, TooltipComponent, GridComponent, DataZoomComponent, BarChart, CanvasRenderer]);
+type EChartsOption = ComposeOption<
+    TooltipComponentOption | LegendComponentOption | DataZoomComponentOption | GridComponentOption | BarSeriesOption
+>;
 
 const option = computed<EChartsOption | null>(() => {
     const campaignCountByStatusByPosition = countByStatusByPosition.value[id];
@@ -31,7 +35,7 @@ const option = computed<EChartsOption | null>(() => {
 
     if (!campaignCountByStatusByPosition || !campaignCountByPosition) return null;
 
-    const xAxisData = Object.keys(campaignCountByStatusByPosition)
+    const xAxisData = Object.keys(campaignCountByStatusByPosition);
 
     return {
         textStyle: {
@@ -49,30 +53,30 @@ const option = computed<EChartsOption | null>(() => {
         },
         dataZoom: [
             {
-                type: 'slider',
+                type: "slider",
                 xAxisIndex: 0,
                 zoomLock: true,
                 handleSize: 20,
                 minValueSpan: 8,
                 maxValueSpan: 8,
-                top: '2', // Should be equivalent to 1rem
+                top: "2", // Should be equivalent to 1rem
                 left: "30%",
                 right: "10%",
-                brushSelect: false,
-            },
+                brushSelect: false
+            }
         ],
         xAxis: {
-            type: 'category',
+            type: "category",
             data: xAxisData.map((val) => {
                 return val || "Autres";
             }),
             axisLabel: {
                 interval: 0,
-                rotate: -30,
+                rotate: -30
             }
         },
         yAxis: {
-            type: 'value'
+            type: "value"
         },
         barWidth: "50%",
         series: [
@@ -81,8 +85,10 @@ const option = computed<EChartsOption | null>(() => {
                 type: "bar",
                 stack: "total",
                 data: xAxisData.map((val) => {
-                    return (campaignCountByStatusByPosition[val]["Submitted Data"] ?? 0) /
-                        (campaignCountByPosition[val] ?? 1);
+                    return (
+                        (campaignCountByStatusByPosition[val]["Submitted Data"] ?? 0) /
+                        (campaignCountByPosition[val] ?? 1)
+                    );
                 })
             },
             {
@@ -90,8 +96,10 @@ const option = computed<EChartsOption | null>(() => {
                 type: "bar",
                 stack: "total",
                 data: xAxisData.map((val) => {
-                    return (campaignCountByStatusByPosition[val]["Clicked Link"] ?? 0) /
-                        (campaignCountByPosition[val] ?? 1);
+                    return (
+                        (campaignCountByStatusByPosition[val]["Clicked Link"] ?? 0) /
+                        (campaignCountByPosition[val] ?? 1)
+                    );
                 })
             },
             {
@@ -99,8 +107,10 @@ const option = computed<EChartsOption | null>(() => {
                 type: "bar",
                 stack: "total",
                 data: xAxisData.map((val) => {
-                    return (campaignCountByStatusByPosition[val]["Email Opened"] ?? 0) /
-                        (campaignCountByPosition[val] ?? 1);
+                    return (
+                        (campaignCountByStatusByPosition[val]["Email Opened"] ?? 0) /
+                        (campaignCountByPosition[val] ?? 1)
+                    );
                 })
             },
             {
@@ -108,10 +118,11 @@ const option = computed<EChartsOption | null>(() => {
                 type: "bar",
                 stack: "total",
                 data: xAxisData.map((val) => {
-                    return (campaignCountByStatusByPosition[val]["Email Sent"] ?? 0) /
-                        (campaignCountByPosition[val] ?? 1);
+                    return (
+                        (campaignCountByStatusByPosition[val]["Email Sent"] ?? 0) / (campaignCountByPosition[val] ?? 1)
+                    );
                 })
-            },
+            }
         ]
     };
 });

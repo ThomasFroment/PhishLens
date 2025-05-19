@@ -11,7 +11,7 @@ import { PieChart } from "echarts/charts";
 import type { LegendComponentOption, TooltipComponentOption } from "echarts/components";
 import { LegendComponent, TooltipComponent } from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
-import { LabelLayout } from 'echarts/features';
+import { LabelLayout } from "echarts/features";
 
 const { id } = defineProps<{
     id: number;
@@ -51,7 +51,7 @@ const option = computed<EChartsOption | null>(() => {
                     borderRadius: 10
                 },
                 label: {
-                    show: true,
+                    show: true
                 },
                 data: [
                     { value: campaignCountByStatus["Submitted Data"], name: translationHashmap["Submitted Data"] },

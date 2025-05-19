@@ -5,6 +5,7 @@ import TreemapDoc from "@/components/charts/doc/TreemapDoc.vue";
 import CardTemplate from "@/components/cards/utils/CardTemplate.vue";
 import StackedbarChart from "@/components/charts/StackedbarChart.vue";
 import StackedbarDoc from "@/components/charts/doc/StackedbarDoc.vue";
+import HeatmapChart from "@/components/charts/HeatmapChart.vue";
 
 defineProps<{
     id: number;
@@ -18,6 +19,9 @@ const chartDefinitions: ChartDefinition[] = [
     {
         chart: StackedbarChart,
         doc: StackedbarDoc
+    },
+    {
+        chart: HeatmapChart
     }
 ];
 </script>

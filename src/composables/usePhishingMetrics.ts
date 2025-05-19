@@ -88,7 +88,7 @@ export const countByPosition = computed(() => {
         if (!csv) return null;
         return countElementsInObject(csv);
     });
-})
+});
 
 /**
  * Computes a reactive array of phishing records grouped by their status themselves grouped by position.

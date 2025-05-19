@@ -24,7 +24,6 @@ describe("calcPercentage", () => {
 });
 
 describe("roundToNDecimal", () => {
-
     it("rounds a positive number to the specified number of decimal places", () => {
         expect(roundToNDecimal(1.234, 0)).toBe(1);
         expect(roundToNDecimal(1.234, 2)).toBe(1.23);
