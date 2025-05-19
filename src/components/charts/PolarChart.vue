@@ -41,7 +41,7 @@ const option = computed<EChartsOption | null>(() => {
         },
         legend: {
             width: "100%",
-            bottom: 20,
+            bottom: 10,
             right: "center"
         },
         polar: {

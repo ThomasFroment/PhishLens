@@ -11,12 +11,13 @@ import { PieChart } from "echarts/charts";
 import type { LegendComponentOption, TooltipComponentOption } from "echarts/components";
 import { LegendComponent, TooltipComponent } from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
+import { LabelLayout } from 'echarts/features';
 
 const { id } = defineProps<{
     id: number;
 }>();
 
-use([TooltipComponent, LegendComponent, PieChart, CanvasRenderer]);
+use([TooltipComponent, LegendComponent, PieChart, CanvasRenderer, LabelLayout]);
 type EChartsOption = ComposeOption<TooltipComponentOption | LegendComponentOption | PieSeriesOption>;
 
 const option = computed<EChartsOption | null>(() => {
@@ -38,7 +39,7 @@ const option = computed<EChartsOption | null>(() => {
         },
         legend: {
             width: "100%",
-            bottom: 20,
+            bottom: 10,
             right: "center"
         },
         series: [
@@ -50,8 +51,7 @@ const option = computed<EChartsOption | null>(() => {
                     borderRadius: 10
                 },
                 label: {
-                    show: false,
-                    position: "center"
+                    show: true,
                 },
                 data: [
                     { value: campaignCountByStatus["Submitted Data"], name: translationHashmap["Submitted Data"] },
