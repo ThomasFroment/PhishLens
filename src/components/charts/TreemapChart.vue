@@ -25,7 +25,7 @@ const option = computed<EChartsOption | null>(() => {
 
     const data = Object.entries(campaignCountByStatusByPosition).map(([key, val]) => {
         return {
-            name: key || "Others",
+            name: key || "Autres",
             value: sumValues(val),
             children: Object.entries(val).map(([key, val]) => {
                 return {
