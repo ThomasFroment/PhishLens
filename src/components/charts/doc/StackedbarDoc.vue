@@ -6,13 +6,10 @@ defineProps<{
 
 <template>
     <p v-html="`Ce diagramme représente les résultats de la campagne du <b>CSV n°${id + 1}.</b>`" />
-    <p>
-        Chaque barre représente la répartition de la dernière étape atteinte par les utilisateurs de chaque service. Par
-        exemple, les personnes ayant soumis leurs données ne sont comptées que dans cette catégorie, et non dans les
-        étapes précédentes.
-    </p>
-    <p>
-        Ainsi, les données ne sont pas additives — elles permettent d’identifier précisément où les utilisateurs se sont
-        arrêtés lors de la campagne.
-    </p>
+    <p
+        v-html="
+            `<b>Données exclusives</b> : Chaque individu est comptabilisé uniquement dans la dernière étape atteinte.`
+        "
+    />
+    <p>Répartition des étapes atteintes par les individus de chaque service au sein de la campagne.</p>
 </template>
