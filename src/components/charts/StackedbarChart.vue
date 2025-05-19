@@ -42,12 +42,18 @@ const option = computed<EChartsOption | null>(() => {
             fontFamily: "Inter"
         },
         tooltip: {
-            trigger: "item",
+            trigger: "axis",
+            axisPointer: {
+                type: "shadow"
+            },
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             formatter: function (params: any) {
                 return `<strong>CSV n°${id + 1}</strong> <br/>
-                        ${params.marker} ${params.name} <br/>
-                        ${params.seriesName}: <strong>${roundToNDecimal(params.value * 100)}</strong>%
+                        ${params[0].name} <br/>
+                        ${params[3].marker} ${params[3].seriesName}: <strong>${roundToNDecimal(params[3].value * 100)}</strong>% <br/>
+                        ${params[2].marker} ${params[2].seriesName}: <strong>${roundToNDecimal(params[2].value * 100)}</strong>% <br/>
+                        ${params[1].marker} ${params[1].seriesName}: <strong>${roundToNDecimal(params[1].value * 100)}</strong>% <br/>
+                        ${params[0].marker} ${params[0].seriesName}: <strong>${roundToNDecimal(params[0].value * 100)}</strong>% <br/>
                 `;
             }
         },
@@ -78,7 +84,7 @@ const option = computed<EChartsOption | null>(() => {
         yAxis: {
             type: "value"
         },
-        barWidth: "50%",
+        barWidth: "60%",
         series: [
             {
                 name: translationHashmap["Submitted Data"],
