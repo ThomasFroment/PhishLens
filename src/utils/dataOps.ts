@@ -6,6 +6,9 @@ import { getPositiveOrDefault } from "@/utils/utils.ts";
  *
  * @param {Partial<Record<StatusType, number>>} countByStatus - An object mapping phishing statuses to their respective counts.
  * @returns {Record<StatusType, number>} An object with aggregated counts for each phishing status.
+ *
+ * Notes:
+ * - The function guarantees that all `StatusType` keys are present in the returned object.
  */
 export function aggregatePhishingStatus(
     countByStatus: Partial<Record<StatusType, number>>
