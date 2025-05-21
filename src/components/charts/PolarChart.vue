@@ -26,13 +26,7 @@ const option = computed<EChartsOption | null>(() => {
     const campaignCountByStatus = countByStatus.value[id];
     if (!campaignCountByStatus) return null;
 
-    let aggregatedCount;
-    try {
-        aggregatedCount = aggregatePhishingStatus(campaignCountByStatus);
-    } catch (e) {
-        console.error("Error aggregating phishing status:", e);
-        return null;
-    }
+    const aggregatedCount = aggregatePhishingStatus(campaignCountByStatus);
     const total = sumValues(campaignCountByStatus);
 
     return {
