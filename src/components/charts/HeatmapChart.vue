@@ -12,6 +12,7 @@ import { HeatmapChart } from "echarts/charts";
 import type { DataZoomComponentOption, GridComponentOption, VisualMapComponentOption } from "echarts/components";
 import { DataZoomComponent, GridComponent, VisualMapComponent } from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
+import { calcPercentage } from "@/utils/utils.ts";
 
 const { id } = defineProps<{
     id: number;
@@ -30,10 +31,12 @@ const option = computed<EChartsOption | null>(() => {
 
     const xAxisData = Object.keys(campaignCountByStatusByPosition);
     const data = xAxisData.reduce(
-        (acc, val, index) => {
-            const status = aggregatePhishingStatus(campaignCountByStatusByPosition[val]);
-            statusEnum.forEach((key) => {
-                acc.push([index, translationHashmap[key], status[key] || "-"]);
+        (acc, position, index) => {
+            const countByStatus = aggregatePhishingStatus(campaignCountByStatusByPosition[position]);
+            const total = campaignCountByPosition[position];
+
+            statusEnum.forEach((status) => {
+                acc.push([index, translationHashmap[status], calcPercentage(countByStatus[status], total) || "-"]);
             });
             return acc;
         },
@@ -80,11 +83,24 @@ const option = computed<EChartsOption | null>(() => {
                 translationHashmap["Submitted Data"]
             ]
         },
+        tooltip: {
+            trigger: "axis",
+            // @ts-expect-error All those properties are not direct properties of params so ts get emotional
+            formatter: function (params) {
+                return `<strong>CSV n°${id + 1}</strong> <br/>
+                        ${params[0].name} <br/>
+                        ${params[3].marker} ${params[3].value[1]}: <strong>${params[3].value[2]}</strong>% <br/>
+                        ${params[2].marker} ${params[2].value[1]}: <strong>${params[2].value[2]}</strong>% <br/>
+                        ${params[1].marker} ${params[1].value[1]}: <strong>${params[1].value[2]}</strong>% <br/>
+                        ${params[0].marker} ${params[0].value[1]}: <strong>${params[0].value[2]}</strong>% <br/>
+                `;
+            }
+        },
         visualMap: {
             orient: "horizontal",
             calculable: true,
-            min: 0,
-            max: 60,
+            min: 10,
+            max: 100,
             inRange: {
                 color: ["#516b91", "#59c4e6", "#a5e7f0"]
             }
@@ -93,7 +109,11 @@ const option = computed<EChartsOption | null>(() => {
             {
                 type: "heatmap",
                 label: {
-                    show: true
+                    show: true,
+                    formatter: (params) => {
+                        // @ts-expect-error All those properties are not direct properties of params so ts get emotional
+                        return `${params.value[2] ?? 0}%`;
+                    }
                 },
                 data: data
             }
