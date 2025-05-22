@@ -133,3 +133,60 @@ export const countByStatusByPosition = computed(() => {
         );
     });
 });
+
+/**
+ * Computes a reactive array of phishing records grouped by their reported status.
+ *
+ * @returns {ComputedRef<(Record<string, PhishingRecord[]> | null)[]>} A computed reference
+ * containing an array where each element is either a record of phishing records grouped by
+ * their reported status (e.g., "true", "false") or `null` if the corresponding CSV is `null`.
+ *
+ * Notes:
+ * - If a CSV is `null`, the corresponding element in the result will also be `null` (to maintain the order).
+ */
+const recordsByReported = computed(() => {
+    return csvArray.value.map((csv: MaybePhishingRecords) => {
+        if (!csv) return null;
+        return groupRecordsByValue(csv, "reported");
+    });
+});
+
+/**
+ * Computes a reactive array of counts of phishing records grouped by their reported status.
+ *
+ * @returns {ComputedRef<(Record<string, number> | null)[]>} A computed reference
+ * containing an array where each element is either a record of counts of phishing records
+ * grouped by their reported status (e.g., "true", "false") or `null` if the corresponding CSV is `null`.
+ *
+ * Notes:
+ * - If a CSV is `null`, the corresponding element in the result will also be `null` (to maintain the order).
+ * - The counts are derived from the `recordsByReported` computed property.
+ */
+export const countByReported = computed(() => {
+    return recordsByReported.value.map((csv) => {
+        if (!csv) return null;
+        return countElementsInObject(csv);
+    });
+});
+
+const recordsByReportedByPosition = computed(() => {
+    return recordsByPosition.value.map((csv) => {
+        if (!csv) return null;
+        return Object.fromEntries(
+            Object.entries(csv).map(([key, val]) => {
+                return [key, groupRecordsByValue(val, "reported")];
+            })
+        );
+    });
+});
+
+export const countByReportedByPosition = computed(() => {
+    return recordsByReportedByPosition.value.map((csv) => {
+        if (!csv) return null;
+        return Object.fromEntries(
+            Object.entries(csv).map(([key, val]) => {
+                return [key, countElementsInObject(val)];
+            })
+        );
+    });
+});

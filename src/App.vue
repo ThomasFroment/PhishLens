@@ -3,6 +3,7 @@
     <div class="chart-grid">
         <DoughnutPolarCombo :id="0" />
         <TreemapStackedbarCombo :id="0" />
+        <IndividualReportCard :id="0" />
     </div>
 </template>
 
@@ -13,6 +14,7 @@ import { provide } from "vue";
 import { THEME_KEY } from "vue-echarts";
 import DoughnutPolarCombo from "@/components/cards/DoughnutPolarCombo.vue";
 import TreemapStackedbarCombo from "@/components/cards/TreemapStackedbarCombo.vue";
+import IndividualReportCard from "@/components/cards/IndividualReportCard.vue";
 
 registerTheme("customTheme", {
     seriesCnt: "3",
