@@ -50,7 +50,7 @@ const phishingRecordSchema = z.object({
     email: z.string().email(),
     status: z.enum(statusEnum),
     position: z.string(),
-    reported: z.string()
+    reported: z.enum(["true", "false"])
 });
 
 export type StatusType = (typeof statusEnum)[number];
