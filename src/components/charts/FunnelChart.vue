@@ -8,8 +8,14 @@ import type { ComposeOption } from "echarts/core";
 import { use } from "echarts/core";
 import type { FunnelSeriesOption } from "echarts/charts";
 import { FunnelChart } from "echarts/charts";
-import type { LegendComponentOption, TooltipComponentOption } from "echarts/components";
-import { LegendComponent, TooltipComponent } from "echarts/components";
+import {
+    LegendComponent,
+    type LegendComponentOption,
+    TitleComponent,
+    type TitleComponentOption,
+    TooltipComponent,
+    type TooltipComponentOption
+} from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
 import { calcPercentage, sumValues } from "@/utils/utils.ts";
 
@@ -17,8 +23,10 @@ const { id } = defineProps<{
     id: number;
 }>();
 
-use([LegendComponent, FunnelChart, CanvasRenderer, TooltipComponent]);
-type EChartsOption = ComposeOption<LegendComponentOption | FunnelSeriesOption | TooltipComponentOption>;
+use([LegendComponent, TitleComponent, FunnelChart, CanvasRenderer, TooltipComponent]);
+type EChartsOption = ComposeOption<
+    LegendComponentOption | TitleComponentOption | FunnelSeriesOption | TooltipComponentOption
+>;
 
 const option = computed<EChartsOption | null>(() => {
     const campaignCountByStatus = countByStatus.value[id];
@@ -28,6 +36,10 @@ const option = computed<EChartsOption | null>(() => {
     const total = sumValues(campaignCountByStatus);
 
     return {
+        title: {
+            text: `Graphique entonnoir des actions de la campagne n°${id + 1}`,
+            right: "0"
+        },
         textStyle: {
             fontFamily: "Inter"
         },

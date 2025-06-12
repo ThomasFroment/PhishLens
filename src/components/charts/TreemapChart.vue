@@ -8,16 +8,20 @@ import type { ComposeOption } from "echarts/core";
 import { use } from "echarts/core";
 import type { TreemapSeriesOption } from "echarts/charts";
 import { TreemapChart } from "echarts/charts";
-import type { TooltipComponentOption } from "echarts/components";
-import { TooltipComponent } from "echarts/components";
+import {
+    TitleComponent,
+    type TitleComponentOption,
+    TooltipComponent,
+    type TooltipComponentOption
+} from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
 
 const { id } = defineProps<{
     id: number;
 }>();
 
-use([TooltipComponent, TreemapChart, CanvasRenderer]);
-type EChartsOption = ComposeOption<TooltipComponentOption | TreemapSeriesOption>;
+use([TooltipComponent, TitleComponent, TreemapChart, CanvasRenderer]);
+type EChartsOption = ComposeOption<TooltipComponentOption | TitleComponentOption | TreemapSeriesOption>;
 
 const option = computed<EChartsOption | null>(() => {
     const campaignCountByStatusByPosition = countByStatusByPosition.value[id];
@@ -37,6 +41,10 @@ const option = computed<EChartsOption | null>(() => {
     });
 
     return {
+        title: {
+            text: `Arborescence des actions de la campagne n°${id + 1} par service`,
+            right: "0"
+        },
         textStyle: {
             fontFamily: "Inter"
         },

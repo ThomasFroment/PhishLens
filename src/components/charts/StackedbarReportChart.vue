@@ -71,7 +71,9 @@ const option = computed<EChartsOption | null>(() => {
         ],
         xAxis: {
             type: "category",
-            data: xAxisData,
+            data: xAxisData.map((val) => {
+                return val || "AUTRES";
+            }),
             axisLabel: {
                 interval: 0,
                 rotate: -30

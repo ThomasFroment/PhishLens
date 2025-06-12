@@ -99,6 +99,7 @@ export const countByPosition = computed(() => {
  *
  * Notes:
  * - If a CSV is `null`, the corresponding element in the result will also be `null` (to maintain the order).
+ * - The grouping is performed first by position and then by status.
  */
 const recordsByStatusByPosition = computed(() => {
     return recordsByPosition.value.map((csv) => {
@@ -169,6 +170,17 @@ export const countByReported = computed(() => {
     });
 });
 
+/**
+ * Computes a reactive array of phishing records grouped by their reported status within each position.
+ *
+ * @returns {ComputedRef<(Record<string, Record<string, PhishingRecord[]> | null>)[]>} A computed reference
+ * containing an array where each element is either a record of phishing records grouped by their reported status
+ * within each position or `null` if the corresponding CSV is `null`.
+ *
+ * Notes:
+ * - If a CSV is `null`, the corresponding element in the result will also be `null` (to maintain the order).
+ * - The grouping is performed first by position and then by the "reported" field.
+ */
 const recordsByReportedByPosition = computed(() => {
     return recordsByPosition.value.map((csv) => {
         if (!csv) return null;
@@ -180,6 +192,17 @@ const recordsByReportedByPosition = computed(() => {
     });
 });
 
+/**
+ * Computes a reactive array of counts of phishing records grouped by their reported status within each position.
+ *
+ * @returns {ComputedRef<(Record<string, Record<string, number>> | null)[]>} A computed reference
+ * containing an array where each element is either a record of counts of phishing records grouped by their
+ * reported status within each position or `null` if the corresponding CSV is `null`.
+ *
+ * Notes:
+ * - If a CSV is `null`, the corresponding element in the result will also be `null` (to maintain the order).
+ * - The counts are derived from the `recordsByReportedByPosition` computed property.
+ */
 export const countByReportedByPosition = computed(() => {
     return recordsByReportedByPosition.value.map((csv) => {
         if (!csv) return null;
@@ -189,4 +212,62 @@ export const countByReportedByPosition = computed(() => {
             })
         );
     });
+});
+
+/**
+ * Computes a reactive array of phishing records grouped by email.
+ *
+ * @returns {ComputedRef<(Record<string, PhishingRecord> | null)[]>} A computed reference
+ * containing an array where each element is either a record of phishing records grouped by email
+ * (with the email as the key and the record as the value) or `null` if the corresponding CSV is `null`.
+ *
+ * Notes:
+ * - If a CSV is `null`, the corresponding element in the result will also be `null` (to maintain the order).
+ * - The grouping is performed differently from the `recordsByStatus` and `recordsByPosition` functions, it expects `email` to be unique.
+ */
+const recordsByEmail = computed(() => {
+    return csvArray.value.map((csv: MaybePhishingRecords) => {
+        if (!csv) return null;
+        return csv.reduce(
+            (acc, record) => {
+                acc[record.email] = record;
+                return acc;
+            },
+            {} as Record<string, PhishingRecord>
+        );
+    });
+});
+
+/**
+ * Computes a reactive set of phishing records that exist in all CSVs.
+ *
+ * @returns {ComputedRef<Set<PhishingRecord> | null>} A computed reference containing a set of phishing records
+ * that are common across all CSVs. If no common records exist or if all CSVs are `null`, it returns `null`.
+ *
+ * Notes:
+ * - The intersection is determined based on the email field of the phishing records.
+ * - If a CSV is `null`, it is skipped during the computation.
+ * - The resulting set contains unique phishing records that match the intersected emails.
+ */
+export const recordsIntersection = computed(() => {
+    let matchingEmails: Set<string> | null = null;
+
+    for (const csv of recordsByEmail.value) {
+        if (!csv) continue;
+        const emails = new Set(Object.keys(csv));
+        matchingEmails = matchingEmails
+            ? new Set([...matchingEmails].filter((email: string) => emails.has(email)))
+            : emails;
+    }
+
+    if (!matchingEmails) return null;
+    const matchingRecords = new Set<PhishingRecord>();
+    for (const csv of recordsByEmail.value) {
+        if (!csv) continue;
+        for (const email of matchingEmails) {
+            if (csv[email]) matchingRecords.add(csv[email]);
+        }
+    }
+
+    return matchingRecords;
 });

@@ -11,4 +11,5 @@ defineProps<{
             `<b>Données agrégées</b> : Un individu comptabilisé dans une étape est également inclus dans toutes les étapes précédentes.`
         "
     />
+    <p>Évolution des individus sur l'ensemble de la campagne</p>
 </template>

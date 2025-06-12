@@ -9,8 +9,16 @@ import type { ComposeOption } from "echarts/core";
 import { use } from "echarts/core";
 import type { HeatmapSeriesOption } from "echarts/charts";
 import { HeatmapChart } from "echarts/charts";
-import type { DataZoomComponentOption, GridComponentOption, VisualMapComponentOption } from "echarts/components";
-import { DataZoomComponent, GridComponent, VisualMapComponent } from "echarts/components";
+import {
+    DataZoomComponent,
+    type DataZoomComponentOption,
+    GridComponent,
+    type GridComponentOption,
+    TitleComponent,
+    type TitleComponentOption,
+    VisualMapComponent,
+    type VisualMapComponentOption
+} from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
 import { calcPercentage } from "@/utils/utils.ts";
 
@@ -18,9 +26,13 @@ const { id } = defineProps<{
     id: number;
 }>();
 
-use([DataZoomComponent, GridComponent, VisualMapComponent, HeatmapChart, CanvasRenderer]);
+use([DataZoomComponent, GridComponent, TitleComponent, VisualMapComponent, HeatmapChart, CanvasRenderer]);
 type EChartsOption = ComposeOption<
-    DataZoomComponentOption | GridComponentOption | VisualMapComponentOption | HeatmapSeriesOption
+    | DataZoomComponentOption
+    | GridComponentOption
+    | VisualMapComponentOption
+    | HeatmapSeriesOption
+    | TitleComponentOption
 >;
 
 const option = computed<EChartsOption | null>(() => {
@@ -44,6 +56,11 @@ const option = computed<EChartsOption | null>(() => {
     );
 
     return {
+        title: {
+            text: `Matrice des taux d'actions / service\nde la campagne n°${id + 1}`,
+            top: "10%",
+            right: "0"
+        },
         textStyle: {
             fontFamily: "Inter"
         },

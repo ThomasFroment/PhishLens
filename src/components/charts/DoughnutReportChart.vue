@@ -8,8 +8,14 @@ import type { ComposeOption } from "echarts/core";
 import { use } from "echarts/core";
 import type { PieSeriesOption } from "echarts/charts";
 import { PieChart } from "echarts/charts";
-import type { LegendComponentOption, TooltipComponentOption } from "echarts/components";
-import { LegendComponent, TooltipComponent } from "echarts/components";
+import {
+    LegendComponent,
+    type LegendComponentOption,
+    TitleComponent,
+    type TitleComponentOption,
+    TooltipComponent,
+    type TooltipComponentOption
+} from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
 import { LabelLayout } from "echarts/features";
 
@@ -17,8 +23,10 @@ const { id } = defineProps<{
     id: number;
 }>();
 
-use([TooltipComponent, LegendComponent, PieChart, CanvasRenderer, LabelLayout]);
-type EChartsOption = ComposeOption<TooltipComponentOption | LegendComponentOption | PieSeriesOption>;
+use([TooltipComponent, LegendComponent, TitleComponent, PieChart, CanvasRenderer, LabelLayout]);
+type EChartsOption = ComposeOption<
+    TooltipComponentOption | TitleComponentOption | LegendComponentOption | PieSeriesOption
+>;
 
 const option = computed<EChartsOption | null>(() => {
     const campaignCountByReported = countByReported.value[id];
@@ -27,6 +35,10 @@ const option = computed<EChartsOption | null>(() => {
     const total = sumValues(campaignCountByReported);
 
     return {
+        title: {
+            text: `Graphique donut des signalements\nde la campagne n°${id + 1}`,
+            right: "0"
+        },
         textStyle: {
             fontFamily: "Inter"
         },

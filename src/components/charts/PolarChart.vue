@@ -9,17 +9,25 @@ import type { ComposeOption } from "echarts/core";
 import { use } from "echarts/core";
 import type { BarSeriesOption } from "echarts/charts";
 import { BarChart } from "echarts/charts";
-import type { LegendComponentOption, PolarComponentOption, TooltipComponentOption } from "echarts/components";
-import { LegendComponent, PolarComponent, TooltipComponent } from "echarts/components";
+import {
+    LegendComponent,
+    type LegendComponentOption,
+    PolarComponent,
+    type PolarComponentOption,
+    TitleComponent,
+    type TitleComponentOption,
+    TooltipComponent,
+    type TooltipComponentOption
+} from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
 
 const { id } = defineProps<{
     id: number;
 }>();
 
-use([LegendComponent, PolarComponent, TooltipComponent, BarChart, CanvasRenderer]);
+use([LegendComponent, PolarComponent, TitleComponent, TooltipComponent, BarChart, CanvasRenderer]);
 type EChartsOption = ComposeOption<
-    LegendComponentOption | PolarComponentOption | TooltipComponentOption | BarSeriesOption
+    LegendComponentOption | PolarComponentOption | TitleComponentOption | TooltipComponentOption | BarSeriesOption
 >;
 
 const option = computed<EChartsOption | null>(() => {
@@ -30,6 +38,10 @@ const option = computed<EChartsOption | null>(() => {
     const total = sumValues(campaignCountByStatus);
 
     return {
+        title: {
+            text: `Graphique polaire des actions\nde la campagne n°${id + 1}`,
+            right: "0"
+        },
         textStyle: {
             fontFamily: "Inter"
         },

@@ -1,9 +1,14 @@
 <template>
     <FileForm />
     <div class="chart-grid">
-        <DoughnutPolarCombo :id="0" />
-        <TreemapStackedbarCombo :id="0" />
+        <IndividualGlobalCard :id="0" />
+        <IndividualPositionCard :id="0" />
         <IndividualReportCard :id="0" />
+    </div>
+    <div class="chart-grid">
+        <IndividualGlobalCard :id="1" />
+        <IndividualPositionCard :id="1" />
+        <IndividualReportCard :id="1" />
     </div>
 </template>
 
@@ -12,8 +17,8 @@ import FileForm from "@/components/form/FileForm.vue";
 import { registerTheme } from "echarts/core";
 import { provide } from "vue";
 import { THEME_KEY } from "vue-echarts";
-import DoughnutPolarCombo from "@/components/cards/DoughnutPolarCombo.vue";
-import TreemapStackedbarCombo from "@/components/cards/TreemapStackedbarCombo.vue";
+import IndividualGlobalCard from "@/components/cards/IndividualGlobalCard.vue";
+import IndividualPositionCard from "@/components/cards/IndividualPositionCard.vue";
 import IndividualReportCard from "@/components/cards/IndividualReportCard.vue";
 
 registerTheme("customTheme", {
@@ -159,9 +164,5 @@ provide(THEME_KEY, "customTheme");
     .chart-grid {
         grid-template-columns: 1fr;
     }
-}
-
-.temp {
-    grid-column: auto;
 }
 </style>
